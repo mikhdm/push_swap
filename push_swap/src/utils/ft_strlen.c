@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/07/31 01:04:22 by rmander          ###   ########.fr       */
+/*   Created: 2021/08/02 19:54:42 by rmander           #+#    #+#             */
+/*   Updated: 2021/08/02 21:31:11 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <limits.h>
+#include <stdlib.h>
 
-
-ssize_t	max(t_stack *stack)
+size_t	ft_strlen(const char *s)
 {
-	ssize_t i;
-	ssize_t imax;
-	ssize_t *data;
+	size_t	i;
 
 	i = 0;
-	imax = i;
-	data = stack->data;
-	while (++i < stack->size)
-		if (data[i] > data[imax])
-			imax = i;
-}
-
-int main(int argc, char **argv)
-{
-	if (argc == 1)
-	{
-		/* ERROR */
-	}
-	return (0);
+	while (*s++)
+		++i;
+	return (i);
 }

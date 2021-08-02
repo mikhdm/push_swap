@@ -6,30 +6,43 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:32:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/07/31 04:05:05 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/02 23:43:41 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STACK_H
 # define STACK_H
 
-# include <sys/types.h>
+#include <stddef.h>
 
-# define DEFAULT_CAPACITY	10
-# define EMPTY_VALUE		SSIZE_MAX
-
-typedef struct t_stack {
-	ssize_t *top;
-	ssize_t	size;
-	ssize_t	capacity;
-	ssize_t	*data;
+/*
+* size - actual capacity of the array; 
+* data - poiter of the data array;
+* top - start of the array (end of the array by default);
+* bottom - bottom of the stack (begin of the array by default);
+*/
+typedef struct s_stack
+{
+	size_t	size;
+	int		*data;
+	int		*top;
+	int		*bottom;
 }	t_stack;
 
-void		init(t_stack *s);
-ssize_t		top(t_stack	*s);
-ssize_t		pop(t_stack *s);
-ssize_t		push(t_stack *s, ssize_t value);
-ssize_t		size(t_stack *s);
-short int	empty(t_stack *s);
+typedef struct s_data
+{
+	t_stack *a;
+	t_stack *b;
+	char	**ops;
+}	t_data;
+
+t_stack		*new(size_t size);
+size_t		size(t_stack *stack);
+int			*top(t_stack *stack);
+short int	empty(t_stack *stack);
+
+int			pop(t_stack *stack);
+int			push(t_data *data, t_stack *stack, int value);
+void		rotate(t_data *data, t_stack *stack);
 
 #endif

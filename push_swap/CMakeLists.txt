@@ -9,9 +9,10 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
 include_directories(include)
 
 set(SRCS
-./src/stack.c
-./src/push_swap.c
 ./src/utils/alloca_to.c
+./src/utils/ft_memset.c
+./src/stackop.c
+./src/main.c
 )
 
 add_executable(push_swap ${SRCS})

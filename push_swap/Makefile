@@ -1,0 +1,44 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/08/02 14:27:56 by rmander           #+#    #+#              #
+#    Updated: 2021/08/02 17:45:45 by rmander          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = push_swap
+CC = cc
+INCLUDE = ./include
+CFLAGS = -g -fsanitize=address -fsanitize=leak -Wall -Wextra -Werror -MMD -I$(INCLUDE) 
+SRCS = 	./src/utils/alloca_to.c \
+		./src/utils/ft_memset.c \
+		./src/stack.c \
+		./src/main.c
+
+OBJS = $(SRCS:.c=.o)
+DEPS = $(SRCS:.c=.d)
+
+all: $(NAME)
+
+-include: $(DEPS)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) $< -o $@
+
+clean: 
+	rm -rf $(OBJS)
+	rm -rf $(DEPS)
+
+fclean: clean
+	rm -rf $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

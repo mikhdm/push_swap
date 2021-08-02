@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strlen_until.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/31 01:21:15 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/02 21:31:14 by rmander          ###   ########.fr       */
+/*   Created: 2021/08/02 23:25:34 by rmander           #+#    #+#             */
+/*   Updated: 2021/08/02 23:33:12 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <sys/types.h>
+#include <stddef.h>
 
-void	*ft_memset(void *b, int c, size_t len)
+size_t	ft_strlen_until(const char *s, const char sym)
 {
-	void	*s;
+	size_t	i;
 
-	s = b;
-	while (len--)
-		*(unsigned char *)b++ = (unsigned char)c;
-	return (s);
+	i = 0;
+	while (*s && (*s != sym))
+	{
+		++i;
+		++s;
+	}
+	return (i);
 }

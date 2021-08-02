@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/31 01:21:15 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/02 21:31:14 by rmander          ###   ########.fr       */
+/*   Created: 2021/08/02 19:34:53 by rmander           #+#    #+#             */
+/*   Updated: 2021/08/02 21:57:25 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <sys/types.h>
+#ifndef ERROR_H
+# define ERROR_H
 
-void	*ft_memset(void *b, int c, size_t len)
-{
-	void	*s;
+#include "stack.h"
 
-	s = b;
-	while (len--)
-		*(unsigned char *)b++ = (unsigned char)c;
-	return (s);
-}
+void	pexit(t_data *data, int status);
+
+#endif
