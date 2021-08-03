@@ -10,9 +10,17 @@ include_directories(include)
 
 set(SRCS
 ./src/utils/alloca_to.c
+./src/utils/ft_atoi.c
+./src/utils/ft_isdigit.c
+./src/utils/ft_isspace.c
 ./src/utils/ft_memset.c
-./src/stackop.c
+./src/utils/ft_strchr.c
+./src/utils/ft_strdup_until.c
+./src/utils/ft_strlen.c
+./src/utils/ft_strlen_until.c
 ./src/main.c
+./src/error.c
+./src/stack.c
 )
 
 add_executable(push_swap ${SRCS})

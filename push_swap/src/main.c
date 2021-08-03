@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/02 23:43:44 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/03 03:03:58 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,15 @@
 #include <limits.h>
 #include <stdlib.h>
 
-int	max(t_stack *stack)
-{
-	int i;
-	int imax;
-	int *data;
-
-	i = 0;
-	imax = i;
-	while (++i < stack->size)
-		if (data[i] > data[imax])
-			imax = i;
-}
-
 int	valid(size_t argc, char **argv)
 {
 	char	*digit;
 	size_t	i;
+	ssize_t	value;
 
 	i = 0;
 	digit = NULL;
+	value = 0;
 	while (i < argc)
 	{
 		digit = argv[i];
@@ -55,32 +44,27 @@ int	valid(size_t argc, char **argv)
 	return (TRUE);
 }
 
-int getarg(char **envp)
-{
-	char	*curr;
-
-	curr = NULL;
-	while (*envp)
-	{
-		curr = *envp;
-		curr = ft_strdup_until(*envp, '=');
-		if (ft_strcmp(curr, "ARG"))
-		{
-			free(curr);
-			curr = ft_strchr(*envp, '=');
-			ft_strdup_until(++curr, '\0');
-			return 
-		}
-	}
-}
-
-int main(int argc, char **argv, char **envp)
+int main(int argc, char **argv)
 {
 	t_data	data;
+	char	**strs;
 
+	strs = NULL;
 	data = (t_data){.a = NULL, .b = NULL, .ops = NULL};
 	if (argc == 1)
 		pexit(NULL, EXIT_FAILURE);
+	if (argc == 2)
+	{
+		strs = ft_splitf(argv[1], ft_isspace);
+		if (!strs)
+			pexit(NULL, EXIT_FAILURE);
+		if (!valid(ft_strslen(strs), strs))
+		{
+			free(strs);
+			pexit(NULL, EXIT_FAILURE);
+		}
+	}
+
 	--argc;
 	if (!valid(argc, argv))
 		pexit(NULL, EXIT_FAILURE);
