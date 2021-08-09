@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:32:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/09 04:18:55 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/09 05:35:02 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_data
 	char	**ops;
 }	t_data;
 
-t_stack		*build(size_t size);
+t_stack		*build(int *values, size_t size);
 size_t		size(t_stack *stack);
 int			*top(t_stack *stack);
 short int	empty(t_stack *stack);

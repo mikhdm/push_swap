@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:35:24 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/09 04:19:54 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/09 05:51:02 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,27 @@
 #include "error.h"
 #include <stdlib.h>
 
-t_stack	*build(size_t size)
+static void	setup(t_stack *s, int *values, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	s->top = s->data;
+	s->bottom = s->data;
+	s->size = 0;
+	if (values)
+	{
+		while (i < size)
+		{
+			s->data[i] = values[size - i - 1];
+			++i;
+		}
+		s->size = size;
+		s->top = &s->data[s->size - 1];
+	}
+}
+
+t_stack	*build(int *values, size_t size)
 {
 	t_stack	*s;
 
@@ -28,9 +48,7 @@ t_stack	*build(size_t size)
 		return (NULL);
 	}
 	ft_memset(s->data, 0, sizeof(int) * size);
-	s->top = s->data;
-	s->bottom = s->data;
-	s->size = size;
+	setup(s, values, size);
 	return (s);
 }
 
