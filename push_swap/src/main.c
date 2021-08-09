@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/09 05:55:08 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/09 06:01:14 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,23 @@ int	*parse(size_t argc, char **argv)
 	return (data);
 }
 
-void	show(t_stack *stack)
+void	debug(t_stack *stack)
 {
 	size_t	i;
 
 	i = 0;
 	printf("----\n");
 	while (i < stack->size)
-		printf("%4d\n", stack->data[stack->size - i++ - 1]);
+	{
+		printf("%4d (%p)\n", 
+				stack->data[stack->size - i - 1],
+				&stack->data[stack->size - i - 1]);
+		++i;
+	}
 	printf("----\n");
+	printf("size: %zu\n", size(stack)); 
+	printf("top: %d (%p)\n", *stack->top, stack->top);
+	printf("bottom: %d (%p)\n", *stack->bottom, stack->bottom);
 }
 
 int main(int argc, char **argv)
@@ -94,7 +102,7 @@ int main(int argc, char **argv)
 	data.b = build(NULL, argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
-	show(data.a);
+	debug(data.a);
 	cleanup(&data);
 	return (0);
 }
