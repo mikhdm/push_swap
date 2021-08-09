@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/09 06:01:14 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/09 06:20:05 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,21 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+void	sort(int *values, size_t size)
+{
+	/* TODO */
+}
+
+short int duplicated(int *values, size_t size)
+{
+	size_t	i;
+	int		*sorted;
+	
+	i = 0;
+	/* TODO check neigbours in the sorted array (a - b) == 0) */
+	return (FALSE);
+}
 
 int	valid(size_t argc, char **argv)
 {
@@ -45,7 +60,6 @@ int	valid(size_t argc, char **argv)
 	}
 	return (TRUE);
 }
-
 
 int	*parse(size_t argc, char **argv)
 {
@@ -102,7 +116,6 @@ int main(int argc, char **argv)
 	data.b = build(NULL, argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
-	debug(data.a);
 	cleanup(&data);
 	return (0);
 }
