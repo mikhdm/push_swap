@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:35:24 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/02 23:43:44 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/09 04:19:54 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 #include "utils.h"
 #include "error.h"
 #include <stdlib.h>
-#include <limits.h>
 
-t_stack	*new(size_t size)
+t_stack	*build(size_t size)
 {
 	t_stack	*s;
 
@@ -62,22 +61,22 @@ short int	full(t_stack *stack)
 	return (FALSE);
 }
 
-size_t	pop(t_stack *stack)
-{
-	/* ssize_t	value; */
+/* size_t	pop(t_stack *stack) */
+/* { */
+/* 	ssize_t	value; */
 
-	/* value = top(s); */
-	/* *s->top = NULL; */
-	/* if (s->top == &s->data[s->capacity - 1]) */
-	/* 	return (value); */
-	/* s->top++; */
-	/* if (*s->top == EMPTY_VALUE) */
-	/* 	s->top = NULL; */
-	/* s->size--; */
-	/* return (value); */
-}
+/* 	value = top(s); */
+/* 	*s->top = NULL; */
+/* 	if (s->top == &s->data[s->capacity - 1]) */
+/* 		return (value); */
+/* 	s->top++; */
+/* 	if (*s->top == EMPTY_VALUE) */
+/* 		s->top = NULL; */
+/* 	s->size--; */
+/* 	return (value); */
+/* } */
 
-size_t push(t_stack *stack, ssize_t value)
-{
+/* size_t push(t_stack *stack, ssize_t value) */
+/* { */
 
-}
+/* } */

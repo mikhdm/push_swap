@@ -6,12 +6,11 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 03:05:19 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/03 03:24:20 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/09 04:21:10 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include <stddef.h>
 
 static ssize_t	ft_pow(ssize_t n, ssize_t power)
 {

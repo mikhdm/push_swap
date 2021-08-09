@@ -6,16 +6,16 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/03 03:03:58 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/09 05:15:47 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
-#include "error.h"
 #include "utils.h"
-#include <stddef.h>
+#include "error.h"
 #include <limits.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int	valid(size_t argc, char **argv)
 {
@@ -24,7 +24,6 @@ int	valid(size_t argc, char **argv)
 	ssize_t	value;
 
 	i = 0;
-	digit = NULL;
 	value = 0;
 	while (i < argc)
 	{
@@ -39,6 +38,9 @@ int	valid(size_t argc, char **argv)
 				return (FALSE);
 			++digit;
 		}
+		value = ft_atoss(argv[i]);
+		if ((value > INT_MAX) || (value < INT_MIN))
+			return (FALSE);
 		++i;
 	}
 	return (TRUE);
@@ -47,32 +49,16 @@ int	valid(size_t argc, char **argv)
 int main(int argc, char **argv)
 {
 	t_data	data;
-	char	**strs;
 
-	strs = NULL;
 	data = (t_data){.a = NULL, .b = NULL, .ops = NULL};
-	if (argc == 1)
+	if (!valid(--argc, ++argv))
 		pexit(NULL, EXIT_FAILURE);
-	if (argc == 2)
-	{
-		strs = ft_splitf(argv[1], ft_isspace);
-		if (!strs)
-			pexit(NULL, EXIT_FAILURE);
-		if (!valid(ft_strslen(strs), strs))
-		{
-			free(strs);
-			pexit(NULL, EXIT_FAILURE);
-		}
-	}
-
-	--argc;
-	if (!valid(argc, argv))
-		pexit(NULL, EXIT_FAILURE);
-	data.a = new(argc);
+	data.a = build(argc);
 	if (!data.a)
 		pexit(NULL, EXIT_FAILURE);
-	data.b = new(argc);
+	data.b = build(argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
+	cleanup(&data);
 	return (0);
 }

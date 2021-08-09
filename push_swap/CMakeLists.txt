@@ -11,6 +11,7 @@ include_directories(include)
 set(SRCS
 ./src/utils/alloca_to.c
 ./src/utils/ft_atoi.c
+./src/utils/ft_atoss.c
 ./src/utils/ft_isdigit.c
 ./src/utils/ft_isspace.c
 ./src/utils/ft_memset.c

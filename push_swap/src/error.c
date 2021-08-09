@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:52:25 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/02 23:33:36 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/09 04:29:04 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	pexit(t_data *data, int status)
+void	cleanup(void *ptr)
 {
-	const char	*error = "Error\n";
+	t_data	*data;
 
-	if (status == EXIT_FAILURE)
-		write(STDERR_FILENO, error, ft_strlen(error)); 
+	data = (t_data *)ptr;
 	if (data)
 	{
 		if (data->a)
@@ -38,5 +37,16 @@ void	pexit(t_data *data, int status)
 		if (data->ops)
 			free(data->ops);
 	}
+}
+
+void	pexit(void *ptr, int status)
+{
+	const char	*error = "Error\n";
+	t_data		*data;
+	
+	data = (t_data *)ptr;
+	if (status == EXIT_FAILURE)
+		write(STDERR_FILENO, error, ft_strlen(error)); 
+	cleanup(data);
 	exit(status);
 }

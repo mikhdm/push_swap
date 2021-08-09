@@ -6,16 +6,17 @@
 #    By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 14:27:56 by rmander           #+#    #+#              #
-#    Updated: 2021/08/03 02:38:19 by mikhaylen        ###   ########.fr        #
+#    Updated: 2021/08/09 05:12:30 by rmander          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 CC = cc
 INCLUDE = ./include
-CFLAGS = -g -fsanitize=address -fsanitize=leak -Wall -Wextra -Werror -MMD -I$(INCLUDE) 
+CFLAGS = -fsanitize=address -fsanitize=leak -Wall -Wextra -Werror -MMD -I $(INCLUDE) 
 SRCS =  ./src/utils/alloca_to.c \
 		./src/utils/ft_atoi.c \
+		./src/utils/ft_atoss.c \
 		./src/utils/ft_isdigit.c \
 		./src/utils/ft_isspace.c \
 		./src/utils/ft_memset.c \
@@ -38,7 +39,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean: 
 	rm -rf $(OBJS)
