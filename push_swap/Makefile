@@ -6,14 +6,14 @@
 #    By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 14:27:56 by rmander           #+#    #+#              #
-#    Updated: 2021/08/09 05:12:30 by rmander          ###   ########.fr        #
+#    Updated: 2021/08/13 22:04:59 by rmander          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 CC = cc
 INCLUDE = ./include
-CFLAGS = -fsanitize=address -fsanitize=leak -Wall -Wextra -Werror -MMD -I $(INCLUDE) 
+CFLAGS = -fsanitize=address -fsanitize=leak -g -Wall -Wextra -Werror -MMD -I $(INCLUDE) 
 SRCS =  ./src/utils/alloca_to.c \
 		./src/utils/ft_atoi.c \
 		./src/utils/ft_atoss.c \

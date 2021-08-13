@@ -6,22 +6,21 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:35:24 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/09 05:51:02 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/13 23:14:37 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
 #include "utils.h"
-#include "error.h"
 #include <stdlib.h>
 
-static void	setup(t_stack *s, int *values, size_t size)
+static	void	setup(t_stack *s, int *values, size_t size)
 {
 	size_t	i;
 
 	i = 0;
-	s->top = s->data;
-	s->bottom = s->data;
+	s->top = NULL;
+	s->bottom = NULL;
 	s->size = 0;
 	if (values)
 	{
@@ -32,6 +31,7 @@ static void	setup(t_stack *s, int *values, size_t size)
 		}
 		s->size = size;
 		s->top = &s->data[s->size - 1];
+		s->bottom = s->data;
 	}
 }
 
@@ -52,23 +52,11 @@ t_stack	*build(int *values, size_t size)
 	return (s);
 }
 
-int	*top(t_stack *stack)
-{
-	if (!empty(stack))
-		return (stack->top);
-	return (NULL);
-}
-
 short int	empty(t_stack *stack)
 {
-	if (stack->top == stack->bottom)
+	if (stack->top)
 		return (TRUE);
 	return (FALSE);
-}
-
-size_t	size(t_stack *stack)
-{
-	return (stack->size);
 }
 
 short int	full(t_stack *stack)
@@ -79,22 +67,45 @@ short int	full(t_stack *stack)
 	return (FALSE);
 }
 
-/* size_t	pop(t_stack *stack) */
-/* { */
-/* 	ssize_t	value; */
+int	*pop(t_stack *stack)
+{
+	int	*value;
 
-/* 	value = top(s); */
-/* 	*s->top = NULL; */
-/* 	if (s->top == &s->data[s->capacity - 1]) */
-/* 		return (value); */
-/* 	s->top++; */
-/* 	if (*s->top == EMPTY_VALUE) */
-/* 		s->top = NULL; */
-/* 	s->size--; */
-/* 	return (value); */
-/* } */
+	value = stack->top;
+	if (!value)
+		return (NULL);
+	if (stack->size == 1)
+	{
+		stack->top = NULL;
+		stack->bottom = NULL;
+	}
+	else
+		stack->top--;
+	--stack->size;
+	return (value);
+}
 
-/* size_t push(t_stack *stack, ssize_t value) */
-/* { */
+int	*push(t_stack *stack, int value)
+{
+	if (full(stack))
+		return (NULL);
+	if (empty(stack))
+	{
+		stack->top = stack->data;
+		stack->bottom = stack->data;
+	}
+	else
+		++stack->top;
+	*(stack->top) = value;
+	return (stack->top);
+}
 
-/* } */
+//int push_bottom(t_stack *stack, int value)
+//{
+//
+//}
+//
+//int pop_bottom(t_stack *stack, int value)
+//{
+//
+//}
