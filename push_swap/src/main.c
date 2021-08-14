@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/13 23:16:36 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/14 23:18:15 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,7 @@ void	debug(t_stack *stack)
 		printf("top: %d (%p)\n", *stack->top, stack->top);
 	else
 		printf("top: null\n");
-	if (stack->bottom)
-		printf("bottom: %d (%p)\n", *stack->bottom, stack->bottom);
-	else
-		printf("bottom: null\n");
-
-	printf("\n-- END --\n");
+	printf("\n-- END --\n\n");
 }
 
 int main(int argc, char **argv)
@@ -126,16 +121,26 @@ int main(int argc, char **argv)
 
 	debug(data.a);
 
-	printf("popped: %d\n", *pop(data.a));
+	printf("popped: %d\n", *pop_back(data.a));
 	debug(data.a);
 
-	printf("popped: %d\n", *pop(data.a));
+	printf("popped: %d\n", *pop_back(data.a));
 	debug(data.a);
 
-	printf("popped: %d\n", *pop(data.a));
+	printf("popped: %d\n", *pop_back(data.a));
 	debug(data.a);
 
-	push(data.a, 100);
+	push_back(data.a, 100);
+
+	debug(data.a);
+
+	push_back(data.a, 200);
+
+	debug(data.a);
+
+	push_back(data.a, 0);
+
+	debug(data.a);
 
 	cleanup(&data);
 	return (0);

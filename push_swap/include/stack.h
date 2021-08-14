@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:32:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/13 22:27:58 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/14 21:45:28 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,25 @@
 */
 typedef struct s_stack
 {
-	size_t	size;
-	int		*data;
-	int		*top;
-	int		*bottom;
+	int			*data;
+	int			*top;
+	size_t		size;
+	size_t		capacity;
 }	t_stack;
 
 typedef struct s_data
 {
+	char	**ops;
 	t_stack *a;
 	t_stack *b;
-	char	**ops;
 }	t_data;
 
 t_stack		*build(int *values, size_t size);
 short int	empty(t_stack *stack);
 short int	full(t_stack *stack);
 
-int			*pop(t_stack *stack);
-int			*push(t_stack* stack, int value);
+int			*pop_back(t_stack *stack);
+int			*push_back(t_stack* stack, int value);
 /* void		rotate(t_data *data, t_stack *stack); */
 
 #endif

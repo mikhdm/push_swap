@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:52:25 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/09 04:29:04 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/14 21:08:51 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ void	cleanup(void *ptr)
 void	pexit(void *ptr, int status)
 {
 	const char	*error = "Error\n";
-	t_data		*data;
-	
-	data = (t_data *)ptr;
+
 	if (status == EXIT_FAILURE)
 		write(STDERR_FILENO, error, ft_strlen(error)); 
-	cleanup(data);
+	cleanup(ptr);
 	exit(status);
 }
