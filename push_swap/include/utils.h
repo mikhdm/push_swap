@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 01:05:52 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/15 17:56:05 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/15 23:12:17 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 short int	alloca_to(void **ptr, size_t size);
 void		*ft_memset(void *b, int c, size_t len);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 int			ft_atoi(const char *str);
 ssize_t		ft_atoss(const char *str);
 int			ft_isspace(int c);

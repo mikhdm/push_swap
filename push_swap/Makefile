@@ -6,7 +6,7 @@
 #    By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 14:27:56 by rmander           #+#    #+#              #
-#    Updated: 2021/08/15 17:59:52 by rmander          ###   ########.fr        #
+#    Updated: 2021/08/15 23:11:27 by rmander          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS =  ./src/utils/alloca_to.c \
 		./src/utils/ft_isdigit.c \
 		./src/utils/ft_isspace.c \
 		./src/utils/ft_memset.c \
+		./src/utils/ft_memcpy.c \
 		./src/utils/ft_strchr.c \
 		./src/utils/ft_strdup_until.c \
 		./src/utils/ft_strlen.c \

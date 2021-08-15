@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/15 18:41:08 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/15 23:25:12 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,34 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/* short int duplicated(int *values, size_t size) */
-/* { */
-/* 	size_t	i; */
-/* 	int		*sorted; */
-	
-/* 	i = 0; */
-/* 	/1* TODO check neigbours in the sorted array (a - b) == 0) *1/ */
-/* 	return (FALSE); */
-/* } */
+short int duplicated(int *values, size_t size)
+{
+	size_t		i;
+	int			*sorted;
+	short int	is;
+
+	sorted = NULL;
+	is = FALSE;
+	i = 1;
+	if (!alloca_to((void **)&sorted, sizeof(int) * size))
+	{
+		free(values);
+		pexit(NULL, EXIT_FAILURE);
+	}
+	ft_memcpy(sorted, values, sizeof(int) * size);
+	sorted = ft_qsort(sorted, 0, size);
+	while (i < size)
+	{
+		if (sorted[i - 1] == sorted[i])
+		{
+			is = TRUE;
+			break ;
+		}
+		++i;
+	}
+	free(sorted);
+	return (is);
+}
 
 int	valid(size_t argc, char **argv)
 {
@@ -106,25 +125,16 @@ int main(int argc, char **argv)
 	values = parse(argc, argv);
 	if (!values)
 		pexit(NULL, EXIT_FAILURE);
+	if (duplicated(values, argc))
+		pexit(NULL, EXIT_FAILURE);
 	data.a = build(values, argc);
-	/* free(values); */
+	free(values);
 	if (!data.a)
 		pexit(NULL, EXIT_FAILURE);
 	data.b = build(NULL, argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
 	
-	int i = 0;
-	while (i < argc)
-		printf("%d ", values[i++]); 
-	printf("\n");
-	ft_qsort(values, 0, argc);
-	i = 0;
-	while (i < argc)
-		printf("%d ", values[i++]); 
-	printf("\n");
-	free(values);
-
 	/* debug(data.a); */
 
 	/* printf("popped: %d\n", *pop_back(data.a)); */

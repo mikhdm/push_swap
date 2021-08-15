@@ -15,6 +15,7 @@ set(SRCS
 ./src/utils/ft_isdigit.c
 ./src/utils/ft_isspace.c
 ./src/utils/ft_memset.c
+./src/utils/ft_memcpy.c
 ./src/utils/ft_strchr.c
 ./src/utils/ft_strdup_until.c
 ./src/utils/ft_strlen.c
