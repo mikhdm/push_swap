@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:35:24 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/15 00:05:01 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/15 17:59:05 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,24 +93,24 @@ int	*push_back(t_stack *stack, int value)
 	return (stack->top);
 }
 
-int	*push_front(t_stack *stack, int value)
-{
-	int		*bottom;
-	size_t	i;
+/* int	*push_front(t_stack *stack, int value) */
+/* { */
+/* 	int		*bottom; */
+/* 	size_t	i; */
 
-	bottom = NULL;
-	if (full(stack))
-		return (NULL);
-	if (empty(stack))
-	{
-		stack->top = stack->data;
-		*(stack->top) = value;
-	}
-	++stack->size;
-	return (stack->top);
-}
+/* 	bottom = NULL; */
+/* 	if (full(stack)) */
+/* 		return (NULL); */
+/* 	if (empty(stack)) */
+/* 	{ */
+/* 		stack->top = stack->data; */
+/* 		*(stack->top) = value; */
+/* 	} */
+/* 	++stack->size; */
+/* 	return (stack->top); */
+/* } */
 
-int	*pop_front(t_stack *stack, int value)
-{
+/* int	*pop_front(t_stack *stack, int value) */
+/* { */
 
-}
+/* } */

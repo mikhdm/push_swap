@@ -6,12 +6,12 @@
 #    By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 14:27:56 by rmander           #+#    #+#              #
-#    Updated: 2021/08/13 22:04:59 by rmander          ###   ########.fr        #
+#    Updated: 2021/08/15 17:59:52 by rmander          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
-CC = cc
+CC = clang
 INCLUDE = ./include
 CFLAGS = -fsanitize=address -fsanitize=leak -g -Wall -Wextra -Werror -MMD -I $(INCLUDE) 
 SRCS =  ./src/utils/alloca_to.c \
@@ -24,6 +24,7 @@ SRCS =  ./src/utils/alloca_to.c \
 		./src/utils/ft_strdup_until.c \
 		./src/utils/ft_strlen.c \
 		./src/utils/ft_strlen_until.c \
+		./src/utils/ft_qsort.c \
 		./src/error.c \
 		./src/stack.c \
 		./src/main.c

@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 01:05:52 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/09 04:10:54 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/15 17:56:05 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ char		*ft_strdup_until(const char *s1, const char sym);
 char		*ft_strchr(const char *s, int c);
 char		**ft_splitf(char const *s, int (*f)(int));
 size_t		ft_strslen(char **strs);
+int			*ft_qsort(int *values, size_t l, size_t r);
 
 #endif

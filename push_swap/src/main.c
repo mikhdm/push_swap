@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/15 00:05:00 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/15 18:41:08 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-/* void	sort(int *values, size_t size) */
-/* { */
-/* 	/1* TODO *1/ */
-/* } */
 
 /* short int duplicated(int *values, size_t size) */
 /* { */
@@ -112,35 +107,46 @@ int main(int argc, char **argv)
 	if (!values)
 		pexit(NULL, EXIT_FAILURE);
 	data.a = build(values, argc);
-	free(values);
+	/* free(values); */
 	if (!data.a)
 		pexit(NULL, EXIT_FAILURE);
 	data.b = build(NULL, argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
+	
+	int i = 0;
+	while (i < argc)
+		printf("%d ", values[i++]); 
+	printf("\n");
+	ft_qsort(values, 0, argc);
+	i = 0;
+	while (i < argc)
+		printf("%d ", values[i++]); 
+	printf("\n");
+	free(values);
 
-	debug(data.a);
+	/* debug(data.a); */
 
-	printf("popped: %d\n", *pop_back(data.a));
-	debug(data.a);
+	/* printf("popped: %d\n", *pop_back(data.a)); */
+	/* debug(data.a); */
 
-	printf("popped: %d\n", *pop_back(data.a));
-	debug(data.a);
+	/* printf("popped: %d\n", *pop_back(data.a)); */
+	/* debug(data.a); */
 
-	printf("popped: %d\n", *pop_back(data.a));
-	debug(data.a);
+	/* printf("popped: %d\n", *pop_back(data.a)); */
+	/* debug(data.a); */
 
-	push_back(data.a, 100);
+	/* push_back(data.a, 100); */
 
-	debug(data.a);
+	/* debug(data.a); */
 
-	push_back(data.a, 200);
+	/* push_back(data.a, 200); */
 
-	debug(data.a);
+	/* debug(data.a); */
 
-	push_back(data.a, 0);
+	/* push_back(data.a, 0); */
 
-	debug(data.a);
+	/* debug(data.a); */
 
 	cleanup(&data);
 	return (0);
