@@ -24,6 +24,7 @@ set(SRCS
 ./src/main.c
 ./src/error.c
 ./src/stack.c
+./src/stackex.c
 )
 
 add_executable(push_swap ${SRCS})
