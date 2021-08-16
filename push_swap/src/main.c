@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 18:36:41 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 19:57:41 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+#define RED "\033[0;31m"
+#define GREEN "\033[0;32m"
+#define YELLOW "\033[0;33m"
+#define NC "\033[0m"
 
 short int duplicated(int *values, size_t size)
 {
@@ -94,7 +99,7 @@ int	*parse(size_t argc, char **argv)
 	return (data);
 }
 
-void	debug(t_stack *stack)
+void	debug(t_stack *stack, char *color)
 {
 	size_t	i;
 
@@ -103,9 +108,9 @@ void	debug(t_stack *stack)
 	while (i > 0)
 	{
 		if (i > stack->size)
-			printf("|%6s|\n", "");
+			printf("%s|%6s|%s\n", color, "", NC);
 		else
-			printf("|%6d| (%p)\n", stack->data[i - 1], &stack->data[i - 1]);
+			printf("%s|%6d|%s (%p)\n", color, stack->data[i - 1], NC, &stack->data[i - 1]);
 		--i;
 	}
 	printf("capacity: %zu\n", stack->capacity);
@@ -139,16 +144,14 @@ int main(int argc, char **argv)
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
 	
-
+	push_back(data.b, 300);
+	push_back(data.b, 200);
 	push_back(data.b, 100);
 
-	debug(data.a);
-	debug(data.b);
-
-	op(&data, "ss");
-
-	debug(data.a);
-	debug(data.b);
+	printf("%sSTACK A:%s\n", GREEN, NC);
+	debug(data.a, GREEN);
+	printf("%sSTACK B:%s\n", RED, NC);
+	debug(data.b, RED);
 
 	/* if (!empty(data.a)) */
 	/* 	push_swap(&data); */
