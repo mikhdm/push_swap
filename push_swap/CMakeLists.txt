@@ -21,6 +21,7 @@ set(SRCS
 ./src/utils/ft_strlen.c
 ./src/utils/ft_strlen_until.c
 ./src/utils/ft_qsort.c
+./src/utils/issorted.c
 ./src/main.c
 ./src/error.c
 ./src/stack.c

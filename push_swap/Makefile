@@ -6,7 +6,7 @@
 #    By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 14:27:56 by rmander           #+#    #+#              #
-#    Updated: 2021/08/16 03:39:03 by rmander          ###   ########.fr        #
+#    Updated: 2021/08/16 04:38:44 by rmander          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS =  ./src/utils/alloca_to.c \
 		./src/utils/ft_strlen.c \
 		./src/utils/ft_strlen_until.c \
 		./src/utils/ft_qsort.c \
+		./src/utils/issorted.c \
 		./src/error.c \
 		./src/stackex.c \
 		./src/stack.c \

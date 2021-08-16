@@ -6,13 +6,14 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:32:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 03:20:46 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 04:24:57 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STACK_H
 # define STACK_H
 
+#include "utils.h"
 #include <stddef.h>
 
 /*
@@ -29,9 +30,10 @@ typedef struct s_stack
 	size_t		capacity;
 }	t_stack;
 
+
 typedef struct s_data
 {
-	char	**ops;
+	t_list	**ops;
 	t_stack *a;
 	t_stack *b;
 }	t_data;
