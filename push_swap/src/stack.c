@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:35:24 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 02:41:03 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 03:34:09 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ int	*pop_back(t_stack *stack)
 	value = stack->top;
 	if (!value)
 		return (NULL);
-	if (stack->size == 1)
+	--stack->size;
+	if (stack->size == 0)
 		stack->top = NULL;
 	else
-		stack->top--;
-	--stack->size;
+		--stack->top;
 	return (value);
 }
 
@@ -113,7 +113,28 @@ int	*push_front(t_stack *stack, int value)
 	return (stack->top);
 }
 
-/* int	*pop_front(t_stack *stack, int value) */
-/* { */
+int	*pop_front(t_stack *stack)
+{
+	size_t	i;
+	int		*value;
+	int		popped;
 
-/* } */
+	if (empty(stack))
+		return (NULL);
+	popped = stack->data[0];
+	i = 1;
+	while (i < stack->size)
+	{
+		stack->data[i - 1] = stack->data[i];
+		++i;
+	}
+	stack->data[stack->size - 1] = popped;
+	value = &stack->data[stack->size - 1];
+	--stack->size;
+	if (stack->size == 0)
+		stack->top = NULL;
+	else
+		--stack->top;
+	return (value);
+
+}

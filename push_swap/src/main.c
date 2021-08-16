@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 03:06:47 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 03:36:11 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,37 +136,6 @@ int main(int argc, char **argv)
 	data.b = build(NULL, argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
-	
-	debug(data.a);
-
-	printf("popped: %d\n", *pop_back(data.a));
-	debug(data.a);
-
-	printf("popped: %d\n", *pop_back(data.a));
-	debug(data.a);
-
-	printf("popped: %d\n", *pop_back(data.a));
-	debug(data.a);
-
-	push_front(data.a, 10000);
-	push_front(data.a, 20000);
-	push_front(data.a, 30000);
-
-	debug(data.a);
-
-
-	/* push_back(data.a, 100); */
-
-	/* debug(data.a); */
-
-	/* push_back(data.a, 200); */
-
-	/* debug(data.a); */
-
-	/* push_back(data.a, 0); */
-
-	/* debug(data.a); */
-
 	cleanup(&data);
 	return (0);
 }
