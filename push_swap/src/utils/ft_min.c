@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_min.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/16 04:52:54 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 20:47:58 by rmander          ###   ########.fr       */
+/*   Created: 2021/08/16 22:31:29 by rmander           #+#    #+#             */
+/*   Updated: 2021/08/16 22:53:49 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
 #include <stddef.h>
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+size_t	ft_min(int *values, size_t size)
 {
-	t_list	*next;
-	t_list	*curr;
+	size_t	i;
+	size_t	imin;
 
-	if (!del)
-		return ;
-	next = *lst;
-	curr = *lst;
-	while (curr)
+	i = 1;
+	imin = 0;
+	while (i < size)
 	{
-		next = curr->next;
-		ft_lstdelone(curr, del);
-		curr = next;
+		if (values[i] < values[imin])
+			imin = i;
+		++i;
 	}
-	*lst = NULL;
+	return (imin);
 }

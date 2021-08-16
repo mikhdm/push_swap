@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:52:25 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 20:45:24 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 22:25:06 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	cleanup(void *ptr)
 			free(data->b);
 		}
 		if (data->ops)
-			free(data->ops);
+			ft_lstclear(&data->ops, free);
 	}
 }
 

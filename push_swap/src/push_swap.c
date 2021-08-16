@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 20:20:50 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 22:58:07 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 
 /*
 *
-* finale - function to check non-empty stack is sorted.
+* sorted - function to check non-empty stack is sorted.
 * empty stack is not considered sorted here to allow operations continue.
 * issorted function checks from the pointer passed as an argument until size is reached.
 * stack->data[0] is a bottom of the stack, that's why we should check in descending order.
 *
 */
-static short int	finale(t_stack *stack)
+static short int	sorted(t_stack *stack)
 {
 	if (empty(stack))
 		return (FALSE);
@@ -31,15 +31,26 @@ static short int	finale(t_stack *stack)
 
 static void	push_swap3(t_data *data)
 {
-	while (!finale(data->a))
+	int				*curr;
+	const size_t	mid = 1;
+	size_t			index;
+	
+	curr = data->a->data;
+	while (!sorted(data->a))
 	{
-		op(data, "pa");
+		index = ft_max(data->a->data, data->a->size);
+		if (index > mid)
+			op(data, "ra");
+		if (index == mid)
+			op(data, "rra");
+		if (*data->a->top > *(data->a->top - 1))
+			op(data, "sa");
 	}
 }
 
 static void	push_swap5(t_data *data)
 {
-	while (!finale(data->a))
+	while (!sorted(data->a))
 	{
 		/* TODO */
 	}
@@ -47,7 +58,7 @@ static void	push_swap5(t_data *data)
 
 static void push_swap_all(t_data *data)
 {
-	while (!finale(data->a))
+	while (!sorted(data->a))
 	{
 		/* TODO */
 	}
