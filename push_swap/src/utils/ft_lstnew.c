@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/02 19:54:42 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/02 21:31:11 by rmander          ###   ########.fr       */
+/*   Created: 2021/08/16 20:08:38 by rmander           #+#    #+#             */
+/*   Updated: 2021/08/16 20:10:15 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
 #include <stdlib.h>
 
-size_t	ft_strlen(const char *s)
+t_list	*ft_lstnew(void *content)
 {
-	size_t	i;
+	t_list	*node;
 
-	i = 0;
-	while (*s++)
-		++i;
-	return (i);
+	node = malloc(sizeof(t_list));
+	if (!node)
+		return (NULL);
+	node->content = content;
+	node->next = NULL;
+	return (node);
 }

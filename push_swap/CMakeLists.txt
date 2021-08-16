@@ -18,11 +18,12 @@ set(SRCS
 ./src/utils/ft_memcpy.c
 ./src/utils/ft_strchr.c
 ./src/utils/ft_strdup_until.c
-./src/utils/ft_strlen.c
 ./src/utils/ft_strlen_until.c
 ./src/utils/ft_qsort.c
 ./src/utils/issorted.c
 ./src/utils/swap.c
+./src/utils/ft_lstnew.c
+./src/utils/ft_lstiter.c
 ./src/utils/ft_lstadd_back.c
 ./src/utils/ft_lstdelone.c
 ./src/utils/ft_lstclear.c

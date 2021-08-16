@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:32:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 04:47:33 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 20:12:46 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_stack
 
 typedef struct s_data
 {
-	t_list	**ops;
+	t_list	*ops;
 	t_stack *a;
 	t_stack *b;
 }	t_data;

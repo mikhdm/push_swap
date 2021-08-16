@@ -6,12 +6,14 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 04:43:18 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 19:58:07 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 20:22:30 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "error.h"
 #include "stack.h"
+#include <stdlib.h>
 
 void	sx(t_data *data, char *cmd)
 {
@@ -86,6 +88,9 @@ void	rrx(t_data *data, char *cmd)
 
 void	op(t_data *data, char *cmd)
 {
+	t_list	*item;
+
+	item = NULL;
 	if (ft_strcmp(cmd, "pa") == 0
 		|| ft_strcmp(cmd, "pb") == 0)
 		px(data, cmd);
@@ -101,4 +106,8 @@ void	op(t_data *data, char *cmd)
 			|| ft_strcmp(cmd, "rrb") == 0
 			|| ft_strcmp(cmd, "rrr") == 0)
 		rrx(data, cmd);
+	item = ft_lstnew(cmd);
+	if (!item)
+		pexit(data, EXIT_FAILURE);
+	ft_lstadd_back(&data->ops, item);
 }

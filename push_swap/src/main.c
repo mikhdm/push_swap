@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 19:57:41 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 20:43:43 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "error.h"
 #include <limits.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 
 #define RED "\033[0;31m"
@@ -122,6 +123,14 @@ void	debug(t_stack *stack, char *color)
 	printf("\n-- END --\n\n");
 }
 
+void	printop(void *op)
+{
+	const char endl = '\n';
+	
+	write(STDOUT_FILENO, op, ft_strlen_until((const char *)op, '\0'));
+	write(STDOUT_FILENO, &endl, 1);
+}
+
 int main(int argc, char **argv)
 {
 	t_data	data;
@@ -156,6 +165,7 @@ int main(int argc, char **argv)
 	/* if (!empty(data.a)) */
 	/* 	push_swap(&data); */
 
+	ft_lstiter(data.ops, printop);
 	cleanup(&data);
 	return (0);
 }
