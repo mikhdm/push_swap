@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:32:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/15 17:58:52 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 02:34:24 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ short int	full(t_stack *stack);
 int			*pop_back(t_stack *stack);
 /* int			*pop_front(t_stack *stack); */
 int			*push_back(t_stack* stack, int value);
-/* int			*push_front(t_stack* stack, int value); */
+int			*push_front(t_stack* stack, int value);
 
 #endif

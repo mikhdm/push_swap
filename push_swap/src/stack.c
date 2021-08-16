@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:35:24 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 00:12:18 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 02:41:03 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,12 @@ int	*push_front(t_stack *stack, int value)
 	if (empty(stack))
 		return (push_back(stack, value));
 	i = stack->size;
-	while (i >= 0)
+	while (i > 0)
 	{
 		stack->data[i] = stack->data[i-1];
 		--i;
 	}
-	*(stack->data) = value;
+	stack->data[0] = value;
 	stack->top = stack->data + stack->size;
 	++stack->size;
 	return (stack->top);

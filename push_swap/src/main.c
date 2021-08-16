@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/15 23:25:12 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 03:06:47 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,17 @@ void	debug(t_stack *stack)
 {
 	size_t	i;
 
-	i = 0;
+	i = stack->capacity;
 	printf("\n-- DEBUG --\n\n");
-	while (i < stack->size)
+	while (i > 0)
 	{
-		printf("|%4d| (%p)\n",
-				stack->data[stack->size - i - 1],
-				&stack->data[stack->size - i - 1]);
-		++i;
+		if (i > stack->size)
+			printf("|%6s|\n", "");
+		else
+			printf("|%6d| (%p)\n", stack->data[i - 1], &stack->data[i - 1]);
+		--i;
 	}
+	printf("capacity: %zu\n", stack->capacity);
 	printf("size: %zu\n", stack->size);
 	if (stack->top)
 		printf("top: %d (%p)\n", *stack->top, stack->top);
@@ -135,16 +137,23 @@ int main(int argc, char **argv)
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
 	
-	/* debug(data.a); */
+	debug(data.a);
 
-	/* printf("popped: %d\n", *pop_back(data.a)); */
-	/* debug(data.a); */
+	printf("popped: %d\n", *pop_back(data.a));
+	debug(data.a);
 
-	/* printf("popped: %d\n", *pop_back(data.a)); */
-	/* debug(data.a); */
+	printf("popped: %d\n", *pop_back(data.a));
+	debug(data.a);
 
-	/* printf("popped: %d\n", *pop_back(data.a)); */
-	/* debug(data.a); */
+	printf("popped: %d\n", *pop_back(data.a));
+	debug(data.a);
+
+	push_front(data.a, 10000);
+	push_front(data.a, 20000);
+	push_front(data.a, 30000);
+
+	debug(data.a);
+
 
 	/* push_back(data.a, 100); */
 
