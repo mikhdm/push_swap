@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 01:05:52 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 04:37:51 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 05:06:36 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,10 @@ char		**ft_splitf(char const *s, int (*f)(int));
 size_t		ft_strslen(char **strs);
 int			*ft_qsort(int *values, size_t l, size_t r);
 short int	issorted(int *values, size_t size, short int asc);
+void		swap(int *l, int *r);
+void		ft_lstadd_back(t_list **lst, t_list *new);
+void		ft_lstdelone(t_list *lst, void (*del)(void *));
+void		ft_lstclear(t_list **lst, void (*del)(void *));
+int			ft_strcmp(const char *s1, const char *s2);
 
 #endif

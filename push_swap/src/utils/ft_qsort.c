@@ -6,20 +6,12 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 17:01:03 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/15 18:43:07 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 04:49:46 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include <stddef.h>
-#include <stdio.h>
-
-static	void	swap(int *l, int *r)
-{
-	int tmp = *l;
-	*l = *r;
-	*r = tmp;
-}
 
 /*
 *

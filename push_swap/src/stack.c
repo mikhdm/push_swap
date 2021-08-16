@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 00:35:24 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 03:38:44 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 04:50:20 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,4 @@ int	*pop_front(t_stack *stack)
 	else
 		--stack->top;
 	return (value);
-
 }
