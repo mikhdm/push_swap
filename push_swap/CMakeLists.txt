@@ -27,6 +27,8 @@ set(SRCS
 ./src/utils/ft_lstdelone.c
 ./src/utils/ft_lstclear.c
 ./src/utils/ft_strcmp.c
+./src/op.c
+./src/push_swap.c
 ./src/main.c
 ./src/error.c
 ./src/stack.c

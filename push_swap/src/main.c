@@ -6,10 +6,12 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 04:42:26 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/16 18:36:41 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+#include "op.h"
 #include "stack.h"
 #include "utils.h"
 #include "error.h"
@@ -137,7 +139,19 @@ int main(int argc, char **argv)
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
 	
+
+	push_back(data.b, 100);
+
 	debug(data.a);
+	debug(data.b);
+
+	op(&data, "ss");
+
+	debug(data.a);
+	debug(data.b);
+
+	/* if (!empty(data.a)) */
+	/* 	push_swap(&data); */
 
 	cleanup(&data);
 	return (0);
