@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 23:18:10 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/17 21:51:50 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,15 +152,19 @@ int main(int argc, char **argv)
 	data.b = build(NULL, argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
+
+	char *color;
 	
-	printf("%sSTACK A:%s\n", GREEN, NC);
-	debug(data.a, GREEN);
+	color = issorted(data.a->data, data.a->size, FALSE) ? GREEN : RED;
+	printf("%sSTACK A:%s\n", color, NC);
+	debug(data.a, color);
 
 	if (!empty(data.a))
 		push_swap(&data);
 
-	printf("%sSTACK A:%s\n", GREEN, NC);
-	debug(data.a, GREEN);
+	color = issorted(data.a->data, data.a->size, FALSE) ? GREEN : RED;
+	printf("%sSTACK A:%s\n", color, NC);
+	debug(data.a, color);
 
 	ft_lstiter(data.ops, printop);
 	cleanup(&data);

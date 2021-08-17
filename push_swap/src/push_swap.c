@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 22:58:07 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/17 21:54:47 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,61 +15,99 @@
 #include "utils.h"
 
 /*
-*
 * sorted - function to check non-empty stack is sorted.
-* empty stack is not considered sorted here to allow operations continue.
-* issorted function checks from the pointer passed as an argument until size is reached.
-* stack->data[0] is a bottom of the stack, that's why we should check in descending order.
-*
+* 			empty and not full stack is not considered sorted here
+* 			to allow operations continue,
+* 			issorted function checks from the pointer passed
+* 			as an argument until size is reached,
+* 			stack->data[0] is a bottom of the stack,
+* 			that's why we should check in descending order.
 */
 static short int	sorted(t_stack *stack)
 {
 	if (empty(stack))
 		return (FALSE);
+	if (!full(stack))
+		return (FALSE);
 	return (issorted(stack->data, stack->size, FALSE));
 }
 
-static void	push_swap3(t_data *data)
+/*
+* push_swap23 - push_swap machinery for size = 2 or 3.
+*/
+static void	push_swap23(t_data *data)
 {
-	int				*curr;
-	const size_t	mid = 1;
-	size_t			index;
-	
-	curr = data->a->data;
+	const size_t	imid = 1;
+	size_t			ind;
+
+	if (data->a->size == 2)
+	{
+		if (*data->a->top > *(data->a->top - 1))
+			op(data, "sa");
+		return ;
+	}
 	while (!sorted(data->a))
 	{
-		index = ft_max(data->a->data, data->a->size);
-		if (index > mid)
+		ind = ft_max(data->a->data, data->a->size);
+		if (ind > imid)
 			op(data, "ra");
-		if (index == mid)
+		if (ind == imid)
 			op(data, "rra");
 		if (*data->a->top > *(data->a->top - 1))
 			op(data, "sa");
 	}
 }
 
-static void	push_swap5(t_data *data)
+/*
+* push_swap5 - push_swap machinery for size = 4 or 5.
+*/
+static void	push_swap45(t_data *data)
 {
-	while (!sorted(data->a))
+	const size_t	imid = data->a->capacity / 2;
+	size_t			ind;
+	int				value;
+	
+	while (data->a->size != 3)
+	{
+		ind = ft_min(data->a->data, data->a->size);
+		value = data->a->data[ind];
+		if (ind >= imid)
+			while (*data->a->top != value)
+				op(data, "ra");
+		else
+			while (*data->a->top != value)
+				op(data, "rra");
+		op(data, "pb");
+	}
+	push_swap23(data);
+	while (!empty(data->b))
+		op(data, "pa");
+}
+
+/*
+* push_swapg - push_swap machinery for cases when size > 5.
+*/
+static void push_swapg(t_data *data)
+{
+	while (TRUE)
 	{
 		/* TODO */
 	}
 }
 
-static void push_swap_all(t_data *data)
-{
-	while (!sorted(data->a))
-	{
-		/* TODO */
-	}
-}
-
+/*
+ * push-swap - main algorithms which choose appropriate
+ * 				function to call for sorting.
+ * 				all algorithms consider assumptions that
+ * 				all elements unique
+ * 				and positive (after mapping elements to indicies).
+ */
 void	push_swap(t_data *data)
 {
-	if (data->a->size == 3)
-		push_swap3(data);
-	else if (data->a->size > 3 && data->a->size <= 5)
-		push_swap5(data);
+	if (data->a->size == 2 || data->a->size == 3)
+		push_swap23(data);
+	else if (data->a->size == 4 || data->a->size == 5)
+		push_swap45(data);
 	else
-		push_swap_all(data);
+		push_swapg(data);
 }
