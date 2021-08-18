@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/18 21:30:46 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/18 22:59:59 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ static void push_swapg(t_data *data)
 }
 
 /*
- * push-swap - main algorithms which choose appropriate
+ * push_swap - main algorithm which choose appropriate
  * 				function to call for sorting.
  * 				all algorithms consider assumptions that
  * 				all elements unique
