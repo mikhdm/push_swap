@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/18 19:21:20 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/18 21:30:46 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,27 @@ static void	push_swap45(t_data *data)
 */
 static void push_swapg(t_data *data)
 {
+	size_t	ind;
+	size_t	imid;
+	int		value;
+
 	if (issorted(data->a->data, data->a->size, FALSE))
 		return ;
-	while (TRUE)
+	imid = data->a->size / 2;
+	while (!empty(data->a))
 	{
-		/* TODO */
+		ind = ft_min(data->a->data, data->a->size); 
+		value = data->a->data[ind];
+		if (ind >= imid)
+			while (*data->a->top != value)
+				op(data, "ra");
+		else
+			while (*data->a->top != value)
+				op(data, "rra");
+		op(data, "pb");
 	}
+	while (!empty(data->b))
+		op(data, "pa");
 }
 
 /*
