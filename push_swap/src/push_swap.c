@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/18 17:50:17 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/18 19:21:20 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 /*
 * sorted - function to check non-empty stack is sorted.
-* 			empty and not full stack is not considered sorted here
+* 			empty stack is not considered sorted here
 * 			to allow operations continue,
 * 			issorted function checks from the pointer passed
 * 			as an argument until size is reached,
@@ -25,9 +25,8 @@
 */
 static short int	sorted(t_stack *stack)
 {
-	if (empty(stack))
-		return (FALSE);
-	return (issorted(stack->data, stack->size, FALSE));
+	return (!empty(stack)
+			&& issorted(stack->data, stack->size, FALSE));
 }
 
 /*
@@ -68,7 +67,7 @@ static void	push_swap45(t_data *data)
 
 	if (issorted(data->a->data, data->a->size, FALSE))
 		return ;
-	while (data->a->size != 3)
+	while (TRUE)
 	{
 		ind = ft_min(data->a->data, data->a->size);
 		value = data->a->data[ind];
@@ -79,6 +78,8 @@ static void	push_swap45(t_data *data)
 			while (*data->a->top != value)
 				op(data, "rra");
 		op(data, "pb");
+		if (data->a->size == 3)
+			break ;
 	}
 	push_swap23(data);
 	while (!empty(data->b))
@@ -90,7 +91,8 @@ static void	push_swap45(t_data *data)
 */
 static void push_swapg(t_data *data)
 {
-	(void) data;
+	if (issorted(data->a->data, data->a->size, FALSE))
+		return ;
 	while (TRUE)
 	{
 		/* TODO */
