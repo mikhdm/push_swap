@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/17 21:54:47 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/18 17:50:17 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static short int	sorted(t_stack *stack)
 {
 	if (empty(stack))
 		return (FALSE);
-	if (!full(stack))
-		return (FALSE);
 	return (issorted(stack->data, stack->size, FALSE));
 }
 
@@ -40,10 +38,11 @@ static void	push_swap23(t_data *data)
 	const size_t	imid = 1;
 	size_t			ind;
 
+	if (issorted(data->a->data, data->a->size, FALSE))
+		return ;
 	if (data->a->size == 2)
 	{
-		if (*data->a->top > *(data->a->top - 1))
-			op(data, "sa");
+		op(data, "sa");
 		return ;
 	}
 	while (!sorted(data->a))
@@ -66,7 +65,9 @@ static void	push_swap45(t_data *data)
 	const size_t	imid = data->a->capacity / 2;
 	size_t			ind;
 	int				value;
-	
+
+	if (issorted(data->a->data, data->a->size, FALSE))
+		return ;
 	while (data->a->size != 3)
 	{
 		ind = ft_min(data->a->data, data->a->size);
@@ -89,6 +90,7 @@ static void	push_swap45(t_data *data)
 */
 static void push_swapg(t_data *data)
 {
+	(void) data;
 	while (TRUE)
 	{
 		/* TODO */

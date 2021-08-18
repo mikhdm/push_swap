@@ -2,3 +2,5 @@ cmake.debug/
 compile_commands.json
 .cache/
 .idea/
+checker_Mac
+checker_linux
