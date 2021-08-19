@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/18 22:59:59 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/19 17:03:04 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 * 			stack->data[0] is a bottom of the stack,
 * 			that's why we should check in descending order.
 */
-static short int	sorted(t_stack *stack)
+static int	sorted(t_stack *stack)
 {
 	return (!empty(stack)
 			&& issorted(stack->data, stack->size, FALSE));
@@ -119,7 +119,7 @@ static void push_swapg(t_data *data)
  * 				function to call for sorting.
  * 				all algorithms consider assumptions that
  * 				all elements unique
- * 				and positive (after mapping elements to indicies).
+ * 				and positive (after mapping elements to indices).
  */
 void	push_swap(t_data *data)
 {

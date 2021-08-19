@@ -22,6 +22,7 @@ set(SRCS
 ./src/utils/ft_qsort.c
 ./src/utils/issorted.c
 ./src/utils/swap.c
+./src/utils/nth_element.c
 ./src/utils/ft_min.c
 ./src/utils/ft_max.c
 ./src/utils/ft_lstnew.c

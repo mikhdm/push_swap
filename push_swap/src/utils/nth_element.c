@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_qsort.c                                         :+:      :+:    :+:   */
+/*   nth_element.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/15 17:01:03 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/19 17:57:24 by rmander          ###   ########.fr       */
+/*   Created: 2021/08/19 17:55:49 by rmander           #+#    #+#             */
+/*   Updated: 2021/08/19 18:16:10 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include <stddef.h>
 
 /*
 * Hoar partition
@@ -19,7 +20,7 @@ static size_t	partition(int *values, size_t l, size_t r)
 {
 	size_t pivot;
 	size_t result;
-	
+
 	result = l;
 	pivot = r;
 	while (l < r)
@@ -35,15 +36,27 @@ static size_t	partition(int *values, size_t l, size_t r)
 	return (result);
 }
 
-int	*ft_qsort(int *values, size_t l, size_t r)
+/*
+ *
+ * nth_element - returns value from sorted values at k
+ */
+int nth_element(int *values, size_t size, size_t k)
 {
-	size_t	ipivot;
+	size_t	l;
+	size_t	r;
+	size_t 	m;
 
-	if (l < r)
+	l = 0;
+	r = size - 1;
+	while (TRUE)
 	{
-		ipivot = partition(values, l, r - 1);
-		ft_qsort(values, l, ipivot);
-		ft_qsort(values, ipivot + 1, r);
+		m = partition(values, l, r);
+		if (k == m)
+			break ;
+		else if (k > m)
+			l = m + 1;
+		else
+			r = m - 1;
 	}
-	return (values);
+	return (values[m]);
 }
