@@ -6,13 +6,16 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/19 17:03:04 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/19 23:18:28 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
+#include "error.h"
 #include "stack.h"
 #include "utils.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /*
 * sorted - function to check non-empty stack is sorted.
@@ -87,31 +90,118 @@ static void	push_swap45(t_data *data)
 }
 
 /*
+* find_lt - returns index of first item less than value found
+*			in values array
+*/
+static ssize_t	find_lt(int const *values, size_t size, int value)
+{
+	size_t 	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (values[i] < value)
+			return ((ssize_t)i);
+		++i;
+	}
+	return (-1);
+}
+
+/*
+* find_gt - returns index of first item greater than or equal value found
+*			in values array
+*/
+/* static ssize_t	find_gt(int const *values, size_t size, int value) */
+/* { */
+/* 	size_t 	i; */
+
+/* 	i = 0; */
+/* 	while (i < size) */
+/* 	{ */
+/* 		if (values[i] > value) */
+/* 			return ((ssize_t)i); */
+/* 		++i; */
+/* 	} */
+/* 	return (-1); */
+/* } */
+
+/*
+* find_leq - returns index of first less than or equal value found
+*			in values array
+*/
+/* static ssize_t	find_leq(int const *values, size_t size, int value) */
+/* { */
+/* 	size_t 	i; */
+
+/* 	i = 0; */
+/* 	while (i < size) */
+/* 	{ */
+/* 		if (values[i] <= value) */
+/* 			return ((ssize_t)i); */
+/* 		++i; */
+/* 	} */
+/* 	return (-1); */
+/* } */
+
+/*
+* find_geq - returns index of first greater than or equal value found
+*			in values array
+*/
+/* static ssize_t	find_geq(int const *values, size_t size, int value) */
+/* { */
+/* 	size_t 	i; */
+
+/* 	i = 0; */
+/* 	while (i < size) */
+/* 	{ */
+/* 		if (values[i] >= value) */
+/* 			return ((ssize_t)i); */
+/* 		++i; */
+/* 	} */
+/* 	return (-1); */
+/* } */
+
+/*
 * push_swapg - push_swap machinery for cases when size > 5.
 */
 static void push_swapg(t_data *data)
 {
-	size_t	ind;
-	size_t	imid;
-	int		value;
+//	size_t	ind;
+//	size_t	imid;
+	/* int		value; */
+	int 	mid;
+	int 	*cache;
+	/* int		count; */
 
 	if (issorted(data->a->data, data->a->size, FALSE))
 		return ;
-	imid = data->a->size / 2;
-	while (!empty(data->a))
+
+	cache = NULL;
+	if (!alloca_to((void **)&cache, sizeof(int) * data->a->capacity))
+		pexit(data, EXIT_FAILURE);
+	ft_memcpy(cache, data->a->data, sizeof(int) * data->a->capacity);
+	mid = nth_element(cache, data->a->capacity, data->a->capacity / 2);
+
+	while (find_lt(data->a->data, data->a->size, mid) != -1)
 	{
-		ind = ft_min(data->a->data, data->a->size); 
-		value = data->a->data[ind];
-		if (ind >= imid)
-			while (*data->a->top != value)
-				op(data, "ra");
+		if (*data->a->top < mid)
+			op(data, "pb");
+		else if (*data->a->data < mid)
+			op(data, "rra");
 		else
-			while (*data->a->top != value)
-				op(data, "rra");
-		op(data, "pb");
+			op(data, "ra");
 	}
-	while (!empty(data->b))
-		op(data, "pa");
+
+	size_t i;
+
+	i = 0;
+	while (i < data->b->size)
+	{
+		printf("%d\n", data->b->data[data->b->size - i - 1]);
+		++i;
+	}
+
+	free(cache);
 }
 
 /*
