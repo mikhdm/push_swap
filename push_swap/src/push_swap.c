@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/19 23:18:28 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/21 00:25:34 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,47 +161,107 @@ static ssize_t	find_lt(int const *values, size_t size, int value)
 /* 	return (-1); */
 /* } */
 
+static void showsize(void *content)
+{
+	printf("%zu\n", *(size_t *)content);
+}
+
+#define RED "\033[0;31m"
+#define GREEN "\033[0;32m"
+#define YELLOW "\033[0;33m"
+#define NC "\033[0m"
+
+static void	debug(t_stack *stack, char *color)
+{
+	size_t	i;
+
+	i = stack->capacity;
+	printf("\n-- DEBUG --\n\n");
+	while (i > 0)
+	{
+		if (i > stack->size)
+			printf("%s|%12s|%s\n", color, "", NC);
+		else
+			printf("%s|%12d|%s (%p)\n", color, stack->data[i - 1], NC, &stack->data[i - 1]);
+		--i;
+	}
+	printf("capacity: %zu\n", stack->capacity);
+	printf("size: %zu\n", stack->size);
+	if (stack->top)
+		printf("top: %d (%p)\n", *stack->top, stack->top);
+	else
+		printf("top: null\n");
+	printf("\n-- END --\n\n");
+}
+
 /*
 * push_swapg - push_swap machinery for cases when size > 5.
 */
 static void push_swapg(t_data *data)
 {
-//	size_t	ind;
-//	size_t	imid;
-	/* int		value; */
 	int 	mid;
 	int 	*cache;
-	/* int		count; */
-
-	if (issorted(data->a->data, data->a->size, FALSE))
-		return ;
+	t_list	*chunks;
+	t_list	*chunk;
+	size_t	*chunksize;
 
 	cache = NULL;
-	if (!alloca_to((void **)&cache, sizeof(int) * data->a->capacity))
-		pexit(data, EXIT_FAILURE);
-	ft_memcpy(cache, data->a->data, sizeof(int) * data->a->capacity);
-	mid = nth_element(cache, data->a->capacity, data->a->capacity / 2);
-
-	while (find_lt(data->a->data, data->a->size, mid) != -1)
+	chunks = NULL;
+	if (issorted(data->a->data, data->a->size, FALSE))
+		return ;
+	while (!empty(data->a) && !issorted(data->a->data, data->a->size, FALSE))
 	{
-		if (*data->a->top < mid)
-			op(data, "pb");
-		else if (*data->a->data < mid)
-			op(data, "rra");
-		else
-			op(data, "ra");
+		chunk = NULL;
+		chunksize = NULL;
+		if (!alloca_to((void **)&chunksize, sizeof(size_t)))
+		{
+			ft_lstclear(&chunks, free);
+			pexit(data, EXIT_FAILURE);
+		}
+
+		/* allocate cache and copy current portion of A to find mid element. 
+		 * Mandatory due to partition operation of nth_element to save actual stack A container unchanged. */ 
+		if (!alloca_to((void **)&cache, sizeof(int) * data->a->size))
+		{
+			ft_lstclear(&chunks, free);
+			pexit(data, EXIT_FAILURE);
+		}
+		ft_memcpy(cache, data->a->data, sizeof(int) * data->a->size);
+		
+		/* find mid value from sorted A */
+		mid = nth_element(cache, data->a->size, data->a->size / 2);
+		/* chunk to save current size of chunk */ 
+		free(cache);
+		cache = NULL;
+		chunk = ft_lstnew(&chunksize);	
+		if (!chunk)
+		{
+			ft_lstclear(&chunks, free); 
+			pexit(data, EXIT_FAILURE);
+		}
+		ft_lstadd_back(&chunks, chunk);
+
+		/* copy chunk from A into B */
+		while (find_lt(data->a->data, data->a->size, mid) != -1)
+		{
+			if (*data->a->top < mid)
+			{
+				op(data, "pb");
+				(*chunksize)++;
+			}
+			else if (*data->a->data < mid)
+				op(data, "rra");
+			else
+				op(data, "ra");
+		}
 	}
 
-	size_t i;
+	debug(data->a, issorted(data->a->data, data->a->size, FALSE) ? GREEN : RED);
+	debug(data->b, issorted(data->b->data, data->b->size, FALSE) ? GREEN : RED);
 
-	i = 0;
-	while (i < data->b->size)
-	{
-		printf("%d\n", data->b->data[data->b->size - i - 1]);
-		++i;
-	}
+	ft_lstiter(chunks, showsize);
 
-	free(cache);
+	ft_lstclear(&chunks, free); 
 }
 
 /*
