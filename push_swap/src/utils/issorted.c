@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 04:27:29 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/16 04:38:12 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/22 04:25:46 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ short int issorted(int *values, size_t size, short int asc)
 
 	i = 1;
 	is = TRUE;
-	if (!values)
+	if (!values || (size == 1))
 		return (is);
 	while (i < size)
 	{
