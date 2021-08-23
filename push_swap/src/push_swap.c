@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/23 04:55:11 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/24 00:40:53 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define RED "\033[0;31m"
-#define GREEN "\033[0;32m"
-#define YELLOW "\033[0;33m"
-#define NC "\033[0m"
-
 /*
 * push_swap23 - push_swap machinery for size = 2 or 3.
 */
@@ -31,14 +26,14 @@ static void	push_swap23(t_data *data)
 	const size_t	imid = 1;
 	size_t			ind;
 
-	if (issorted(data->a->data, data->a->size, FALSE))
+	if (issorted(data->a->data, data->a->size, DESC))
 		return ;
 	if (data->a->size == 2)
 	{
 		op(data, "sa");
 		return ;
 	}
-	while (!issorted(data->a->data, data->a->size, FALSE))
+	while (!issorted(data->a->data, data->a->size, DESC))
 	{
 		ind = ft_max(data->a->data, data->a->size);
 		if (ind > imid)
@@ -59,7 +54,7 @@ static void	push_swap45(t_data *data)
 	size_t			ind;
 	int				value;
 
-	if (issorted(data->a->data, data->a->size, FALSE))
+	if (issorted(data->a->data, data->a->size, DESC))
 		return ;
 	while (TRUE)
 	{
@@ -91,7 +86,7 @@ static void debug_showsize(void *content)
 }
 
 
-static void	debug(t_stack *stack, char *color)
+void	debug(t_stack *stack, char *color)
 {
 	size_t	i;
 
@@ -114,7 +109,7 @@ static void	debug(t_stack *stack, char *color)
 	printf("\n-- END --\n\n");
 }
 
-static t_chunk	*lstadd_chunk(t_data *data)
+t_chunk	*lstadd_chunk(t_data *data)
 {
 	t_chunk	*chunk;
 	t_list	*node;
@@ -138,13 +133,13 @@ static t_chunk	*lstadd_chunk(t_data *data)
 /*
 * break stack A elements into chunks and put them into B
 */
-static void	chunking_init(t_data *data)
+static void	chunking_initial(t_data *data)
 {
 	int 	mid;
 	t_chunk	*chunk;
 
 	chunk = NULL;
-	while (!empty(data->a) && !issorted(data->a->data, data->a->size, FALSE))
+	while (!empty(data->a) && !issorted(data->a->data, data->a->size, DESC))
 	{
 		chunk = lstadd_chunk(data);
 		mid = nth_element_copy(data, data->a->data, data->a->size,
@@ -171,12 +166,15 @@ static void	chunking_init(t_data *data)
 */
 static void push_swap_g(t_data *data)
 {
-	if (issorted(data->a->data, data->a->size, FALSE))
+	if (issorted(data->a->data, data->a->size, DESC))
 		return ;
-	chunking_init(data);
+	chunking_initial(data);
+
+	debug(data->a, issorted(data->a->data, data->a->size, DESC) ? GREEN : RED);
+	debug(data->b, issorted(data->b->data, data->b->size, DESC) ? GREEN : RED);
+	ft_lstiter(data->chunks, debug_showsize);
 
 	/* second part -- put data from chunks into A before chunk will be sorted in A. */
-	/* size_t	rbc; */
 	/* size_t	achunksize; */
 	/* t_list	*newnode; */
 	/* t_chunk	*newchunk; */
@@ -211,41 +209,60 @@ static void push_swap_g(t_data *data)
 	/* 		} */
 	/* 		else */
 	/* 		{ */
-	/* 			rbc = 0; */
-	/* 			achunksize = 0; */
-	/* 			while (find_gt(chunk->top + chunk->size - 1, chunk->size, mid) != -1) */
-	/* 			{ */
-	/* 				if (*chunk->top > mid) */
-	/* 				{ */
-	/* 					op(data, "pa"); */
-	/* 					++achunksize; */
-	/* 				} */
-	/* 				else */
-	/* 				{ */
-	/* 					op(data, "ra"); */
-	/* 					++rbc; */
-	/* 				} */
-	/* 				--chunk->top; */
-	/* 				--chunk->size; */
-	/* 			} */
-	/* 			while (rbc--) */
-	/* 			{ */
-	/* 				op(data, "rra"); */ 
-	/* 				++chunk->top; */
-	/* 				++chunk->size; */
-	/* 			} */
-
-
 	/* 		} */
 	/* 	} */
 	/* 	node = node->next; */
 	/* } */
+	
+	t_chunk	a_chunk;
+	t_chunk	*b_chunk;
+	t_list	*node;
+	int		*bottom;
+	int		mid;
+	size_t	sz;
+
+	a_chunk = (t_chunk){.top = NULL, .size = 0};
+	b_chunk = NULL;
+	bottom = NULL;
+	node = data->chunks;
+	while (node)
+	{
+		b_chunk = (t_chunk *)node->content;
+		if (!b_chunk->top)
+		{
+			node = node->next;
+			continue ;
+		}
+		bottom = b_chunk->top - b_chunk->size + 1;
+		if (issorted(bottom, b_chunk->size, ASC))
+		{
+			while (b_chunk->size--)
+				op(data, "pa");
+			b_chunk->top = NULL;
+			b_chunk->size = 0;
+			node = node->next;
+			continue ;
+		}
+		if (b_chunk->size == 2)
+		{
+			if (*b_chunk->top < *(b_chunk->top - 1))
+				op(data, "sb");
+			continue ;
+		}
+		/* not empty case && not sorted && size > 2 */ 
+		mid = nth_element_copy(data, bottom, b_chunk->size, b_chunk->size / 2);
+		sz = partition_b_gt(data, b_chunk, mid);
+		a_chunk.size = sz;
+		a_chunk.top = data->a->top;
+		chunking_a_lt(data, &a_chunk);
+		node = node->next;
+	}
 
 	/* while (!empty(data->b)) */
 	/* 	op(data, "pa"); */
 
-	debug(data->a, issorted(data->a->data, data->a->size, FALSE) ? GREEN : RED);
-	debug(data->b, issorted(data->b->data, data->b->size, FALSE) ? GREEN : RED);
+	debug(data->a, issorted(data->a->data, data->a->size, DESC) ? GREEN : RED);
+	debug(data->b, issorted(data->b->data, data->b->size, DESC) ? GREEN : RED);
 	ft_lstiter(data->chunks, debug_showsize);
 }
 

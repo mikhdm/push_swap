@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = push_swap
-CC = cc
+CC = clang
 INCLUDE = ./include
 CFLAGS = -fsanitize=address -fsanitize=leak -g -Wall -Wextra -Werror -MMD -I $(INCLUDE) 
 SRCS =  ./src/utils/alloca_to.c \
@@ -41,6 +41,8 @@ SRCS =  ./src/utils/alloca_to.c \
 		./src/utils/find_gt.c \
 		./src/utils/find_lt.c \
 		./src/op.c \
+		./src/chunking.c \
+		./src/partition.c \
 		./src/push_swap.c \
 		./src/error.c \
 		./src/stackex.c \

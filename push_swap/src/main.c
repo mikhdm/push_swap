@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/23 03:49:45 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/24 00:41:00 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
-
-#define RED "\033[0;31m"
-#define GREEN "\033[0;32m"
-#define YELLOW "\033[0;33m"
-#define NC "\033[0m"
 
 short int duplicated(int *values, size_t size)
 {
@@ -100,28 +95,28 @@ int	*parse(size_t argc, char **argv)
 	return (data);
 }
 
-void	debug(t_stack *stack, char *color)
-{
-	size_t	i;
+/* void	debug(t_stack *stack, char *color) */
+/* { */
+/* 	size_t	i; */
 
-	i = stack->capacity;
-	printf("\n-- DEBUG --\n\n");
-	while (i > 0)
-	{
-		if (i > stack->size)
-			printf("%s|%6s|%s\n", color, "", NC);
-		else
-			printf("%s|%6d|%s (%p)\n", color, stack->data[i - 1], NC, &stack->data[i - 1]);
-		--i;
-	}
-	printf("capacity: %zu\n", stack->capacity);
-	printf("size: %zu\n", stack->size);
-	if (stack->top)
-		printf("top: %d (%p)\n", *stack->top, stack->top);
-	else
-		printf("top: null\n");
-	printf("\n-- END --\n\n");
-}
+/* 	i = stack->capacity; */
+/* 	printf("\n-- DEBUG --\n\n"); */
+/* 	while (i > 0) */
+/* 	{ */
+/* 		if (i > stack->size) */
+/* 			printf("%s|%6s|%s\n", color, "", NC); */
+/* 		else */
+/* 			printf("%s|%6d|%s (%p)\n", color, stack->data[i - 1], NC, &stack->data[i - 1]); */
+/* 		--i; */
+/* 	} */
+/* 	printf("capacity: %zu\n", stack->capacity); */
+/* 	printf("size: %zu\n", stack->size); */
+/* 	if (stack->top) */
+/* 		printf("top: %d (%p)\n", *stack->top, stack->top); */
+/* 	else */
+/* 		printf("top: null\n"); */
+/* 	printf("\n-- END --\n\n"); */
+/* } */
 
 void	printop(void *op)
 {
