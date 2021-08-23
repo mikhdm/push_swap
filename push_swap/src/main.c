@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/19 23:16:28 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/23 03:49:45 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ int main(int argc, char **argv)
 	int		*values;
 	
 	values = NULL;
-	data = (t_data){.a = NULL, .b = NULL, .ops = NULL};
+	data = (t_data){.a = NULL, .b = NULL, .ops = NULL,
+					.chunks = NULL};
 	if (!valid(--argc, ++argv))
 		pexit(NULL, EXIT_FAILURE);
 	values = parse(argc, argv);

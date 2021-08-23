@@ -33,9 +33,12 @@ SRCS =  ./src/utils/alloca_to.c \
 		./src/utils/ft_lstnew.c \
 		./src/utils/ft_lstiter.c \
 		./src/utils/ft_lstadd_back.c \
+		./src/utils/ft_lstadd_front.c \
 		./src/utils/ft_lstdelone.c \
 		./src/utils/ft_lstclear.c \
 		./src/utils/ft_strcmp.c \
+		./src/utils/find_gt.c \
+		./src/utils/find_lt.c \
 		./src/op.c \
 		./src/push_swap.c \
 		./src/error.c \

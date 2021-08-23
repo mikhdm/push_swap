@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 01:05:52 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/19 18:13:32 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/23 03:05:55 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ void		swap(int *l, int *r);
 t_list		*ft_lstnew(void *content);
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 void		ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *new);
 void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 int			ft_strcmp(const char *s1, const char *s2);
 size_t		ft_min(int *values, size_t size);
 size_t		ft_max(int *values, size_t size);
+ssize_t	find_gt(int const *values, size_t size, int value);
+ssize_t	find_lt(int const *values, size_t size, int value);
 
 #endif

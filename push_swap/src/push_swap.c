@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/22 05:03:32 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/23 04:00:58 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 #include "utils.h"
 #include <stdlib.h>
 #include <stdio.h>
+
+#define RED "\033[0;31m"
+#define GREEN "\033[0;32m"
+#define YELLOW "\033[0;33m"
+#define NC "\033[0m"
 
 /*
 * push_swap23 - push_swap machinery for size = 2 or 3.
@@ -75,77 +80,6 @@ static void	push_swap45(t_data *data)
 		op(data, "pa");
 }
 
-/*
-* find_lt - returns index of first item less than value found
-*			in values array
-*/
-static ssize_t	find_lt(int const *values, size_t size, int value)
-{
-	size_t 	i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (values[i] < value)
-			return ((ssize_t)i);
-		++i;
-	}
-	return (-1);
-}
-
-/*
-* find_gt - returns index of first item greater than or equal value found
-*			in values array
-*/
-static ssize_t	find_gt(int const *values, size_t size, int value)
-{
-	size_t 	i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (values[i] > value)
-			return ((ssize_t)i);
-		++i;
-	}
-	return (-1);
-}
-
-/*
-* find_leq - returns index of first less than or equal value found
-*			in values array
-*/
-/* static ssize_t	find_leq(int const *values, size_t size, int value) */
-/* { */
-/* 	size_t 	i; */
-
-/* 	i = 0; */
-/* 	while (i < size) */
-/* 	{ */
-/* 		if (values[i] <= value) */
-/* 			return ((ssize_t)i); */
-/* 		++i; */
-/* 	} */
-/* 	return (-1); */
-/* } */
-
-/*
-* find_geq - returns index of first greater than or equal value found
-*			in values array
-*/
-/* static ssize_t	find_geq(int const *values, size_t size, int value) */
-/* { */
-/* 	size_t 	i; */
-
-/* 	i = 0; */
-/* 	while (i < size) */
-/* 	{ */
-/* 		if (values[i] >= value) */
-/* 			return ((ssize_t)i); */
-/* 		++i; */
-/* 	} */
-/* 	return (-1); */
-/* } */
 
 static void debug_showsize(void *content)
 {
@@ -156,10 +90,6 @@ static void debug_showsize(void *content)
 	printf("chunk size: %zu\n--\n", ch->size);
 }
 
-#define RED "\033[0;31m"
-#define GREEN "\033[0;32m"
-#define YELLOW "\033[0;33m"
-#define NC "\033[0m"
 
 static void	debug(t_stack *stack, char *color)
 {
@@ -184,25 +114,55 @@ static void	debug(t_stack *stack, char *color)
 	printf("\n-- END --\n\n");
 }
 
+static t_chunk	*lstadd_chunk(t_data *data)
+{
+	t_chunk	*chunk;
+	t_list	*node;
+
+	chunk = NULL;
+	node = NULL;
+	if (!alloca_to((void **)&chunk, sizeof(t_chunk)))
+		pexit(data, EXIT_FAILURE);
+	chunk->size = 0;
+	chunk->top = NULL;
+	node = ft_lstnew(chunk);	
+	if (!node)
+	{
+		free(chunk);
+		pexit(data, EXIT_FAILURE);
+	}
+	ft_lstadd_front(&data->chunks, node);
+	return (chunk);
+}
 
 /* 
 * Allocate cache and copy current chunk to find mid element. 
 * Mandatory due to partition operation of nth_element work and swaps in-place
 * to save actual chunk unchanged.
 */
-static int	*mid_element_to(int *values, size_t size, int *to)
+static int	mid_element(t_data *data, int *values, size_t size)
 {
-	int *cache;
+	int	*cache;
+	int	mid;
 
 	cache = NULL;
 	if (!alloca_to((void **)&cache, sizeof(int) * size))
-		return (NULL);
+		pexit(data, EXIT_FAILURE);
 	ft_memcpy(cache, values, sizeof(int) * size);
-	/* find mid value from current chunk */
-	*to = nth_element(cache, size, size / 2);
+	mid = nth_element(cache, size, size / 2);
 	free(cache);
-	return (to);
+	return (mid);
 }
+
+/* static void	push_swap_g_ab(t_data *data, int *values, int size, int mid) */
+/* { */
+
+/* } */
+
+/* static void	push_swap_g_ba(t_data *data, int *values, int size, int mid) */
+/* { */
+
+/* } */
 
 /*
 * push_swap_g - push_swap generic machinery for cases when size > 5.
@@ -210,12 +170,8 @@ static int	*mid_element_to(int *values, size_t size, int *to)
 static void push_swap_g(t_data *data)
 {
 	int 	mid;
-	t_list	*chunks;
-	t_list	*node;
 	t_chunk	*chunk;
 
-	chunks = NULL;
-	node = NULL;
 	if (issorted(data->a->data, data->a->size, FALSE))
 		return ;
 
@@ -223,27 +179,8 @@ static void push_swap_g(t_data *data)
 	 * put them into B */
 	while (!empty(data->a) && !issorted(data->a->data, data->a->size, FALSE))
 	{
-		chunk = NULL;
-		if (!alloca_to((void **)&chunk, sizeof(t_chunk)))
-		{
-			ft_lstclear(&chunks, free);
-			pexit(data, EXIT_FAILURE);
-		}
-		chunk->size = 0;
-		chunk->top = NULL;
-		node = ft_lstnew(chunk);	
-		if (!node)
-		{
-			free(chunk);
-			ft_lstclear(&chunks, free);
-			pexit(data, EXIT_FAILURE);
-		}
-		ft_lstadd_back(&chunks, node);
-		if (mid_element_to(data->a->data, data->a->size, &mid) == NULL)
-		{
-			ft_lstclear(&chunks, free);
-			pexit(data, EXIT_FAILURE);
-		}
+		chunk = lstadd_chunk(data);
+		mid = mid_element(data, data->a->data, data->a->size);
 		/* copy chunk from A into B */
 		while (find_lt(data->a->data, data->a->size, mid) != -1)
 		{
@@ -263,66 +200,77 @@ static void push_swap_g(t_data *data)
 	}
 
 	/* second part -- put data from chunks into A before chunk will be sorted in A. */
-	size_t	rb_cnt;
-	node = chunks;
-	chunk = NULL;
-	while (node)
-	{
-		chunk = (t_chunk *)node->content;
-		if (issorted(chunk->top + chunk->size - 1, chunk->size, TRUE))
-		{
-			while(chunk->size--)
-				op(data, "pa");
-			chunk->top = NULL;
-		}
-		else if (chunk->size == 2)
-		{
-			if (*chunk->top < *(chunk->top - 1))
-				op(data, "sb");
-			while(chunk->size--)
-				op(data, "pa");
-			chunk->top = NULL;
-		}
-		else
-		{
-			rb_cnt = 0;
-			if (mid_element_to(chunk->top + chunk->size - 1, chunk->size, &mid) == NULL)
-			{
-				ft_lstclear(&chunks, free);
-				pexit(data, EXIT_FAILURE);
-			}
-			while (find_gt(chunk->top + chunk->size - 1, chunk->size, mid) != -1)
-			{
-				if (*chunk->top > mid)
-				{
-					op(data, "pa");
-				}
-				else
-				{
-					op(data, "rb");
-					++rb_cnt;
-				}
-				--chunk->top;
-				--chunk->size;
-			}
-			while (rb_cnt--)
-			{
-				op(data, "rrb");
-				++chunk->top;
-				++chunk->size;
-			}
-		}
-		node = node->next;
-	}
+	/* size_t	rbc; */
+	/* size_t	achunksize; */
+	/* t_list	*newnode; */
+	/* t_chunk	*newchunk; */
+	/* node = data->chunks; */
+	/* chunk = NULL; */
 
-	while (!empty(data->b))
-		op(data, "pa");
+	/* newnode = NULL; */
+	/* newchunk = NULL; */
+	/* while (node) */
+	/* { */
+	/* 	chunk = (t_chunk *)node->content; */
+	/* 	while (TRUE) */
+	/* 	{ */
+	/* 		if (mid_element_to(chunk->top + chunk->size - 1, chunk->size, &mid) == NULL) */
+	/* 		{ */
+	/* 			ft_lstclear(&chunks, free); */
+	/* 			pexit(data, EXIT_FAILURE); */
+	/* 		} */
+	/* 		if (issorted(chunk->top + chunk->size - 1, chunk->size, TRUE)) */
+	/* 		{ */
+	/* 			while(chunk->size--) */
+	/* 				op(data, "pa"); */
+	/* 			chunk->top = NULL; */
+	/* 		} */
+	/* 		else if (chunk->size == 2) */
+	/* 		{ */
+	/* 			if (*chunk->top < *(chunk->top - 1)) */
+	/* 				op(data, "sb"); */
+	/* 			while (chunk->size--) */
+	/* 				op(data, "pa"); */
+	/* 			chunk->top = NULL; */
+	/* 		} */
+	/* 		else */
+	/* 		{ */
+	/* 			rbc = 0; */
+	/* 			achunksize = 0; */
+	/* 			while (find_gt(chunk->top + chunk->size - 1, chunk->size, mid) != -1) */
+	/* 			{ */
+	/* 				if (*chunk->top > mid) */
+	/* 				{ */
+	/* 					op(data, "pa"); */
+	/* 					++achunksize; */
+	/* 				} */
+	/* 				else */
+	/* 				{ */
+	/* 					op(data, "ra"); */
+	/* 					++rbc; */
+	/* 				} */
+	/* 				--chunk->top; */
+	/* 				--chunk->size; */
+	/* 			} */
+	/* 			while (rbc--) */
+	/* 			{ */
+	/* 				op(data, "rra"); */ 
+	/* 				++chunk->top; */
+	/* 				++chunk->size; */
+	/* 			} */
+
+
+	/* 		} */
+	/* 	} */
+	/* 	node = node->next; */
+	/* } */
+
+	/* while (!empty(data->b)) */
+	/* 	op(data, "pa"); */
 
 	debug(data->a, issorted(data->a->data, data->a->size, FALSE) ? GREEN : RED);
 	debug(data->b, issorted(data->b->data, data->b->size, FALSE) ? GREEN : RED);
-
-	ft_lstiter(chunks, debug_showsize);
-	ft_lstclear(&chunks, free); 
+	ft_lstiter(data->chunks, debug_showsize);
 }
 
 /*
