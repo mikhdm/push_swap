@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 00:45:49 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/24 01:51:18 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ static void	push_swap45(t_data *data)
 }
 
 
-static void debug_showsize(void *content)
-{
-	t_chunk *ch;
+/* static void debug_showsize(void *content) */
+/* { */
+/* 	t_chunk *ch; */
 
-	ch = (t_chunk *)content;
-	printf("--\nchunk top: %p\n", ch->top); 
-	printf("chunk size: %zu\n--\n", ch->size);
-}
+/* 	ch = (t_chunk *)content; */
+/* 	printf("--\nchunk top: %p\n", ch->top); */ 
+/* 	printf("chunk size: %zu\n--\n", ch->size); */
+/* } */
 
 
 void	debug(t_stack *stack)
@@ -163,25 +163,21 @@ static void	chunking_initial(t_data *data)
 			push_swap23(data);
 	}
 }
+
 /*
 * push_swap_g - push_swap generic machinery for cases when size > 5.
 */
 static void push_swap_g(t_data *data)
 {
-	if (issorted(data->a->data, data->a->size, DESC))
-		return ;
-	chunking_initial(data);
-
-	debug(data->a);
-	debug(data->b);
-	ft_lstiter(data->chunks, debug_showsize);
-
 	t_chunk	a_chunk;
 	t_chunk	*b_chunk;
 	t_list	*node;
 	int		*bottom;
-	int		mid;
 	size_t	sz;
+
+	if (issorted(data->a->data, data->a->size, DESC))
+		return ;
+	chunking_initial(data);
 
 	a_chunk = (t_chunk){.top = NULL, .size = 0};
 	b_chunk = NULL;
@@ -211,21 +207,12 @@ static void push_swap_g(t_data *data)
 				op(data, "sb");
 			continue ;
 		}
-		/* not empty case && not sorted && size > 2 */ 
-		mid = nth_element_copy(data, bottom, b_chunk->size, b_chunk->size / 2);
-		sz = partition_b_gt(data, b_chunk, mid);
+		sz = partition_b_gt(data, b_chunk);
 		a_chunk.size = sz;
 		a_chunk.top = data->a->top;
 		chunking_a_lt(data, &a_chunk);
-		node = node->next;
+		node = data->chunks;
 	}
-
-	/* while (!empty(data->b)) */
-	/* 	op(data, "pa"); */
-
-	debug(data->a);
-	debug(data->b);
-	ft_lstiter(data->chunks, debug_showsize);
 }
 
 /*

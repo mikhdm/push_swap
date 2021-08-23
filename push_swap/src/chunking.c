@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:49:32 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 00:41:03 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/24 01:50:08 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,21 @@
 * 
 * @return Nothing or exits in case of failure.
 */
-void	chunking_a_lt(t_data *data, t_chunk *chunk)
+void	chunking_a_lt(t_data *data, t_chunk *a_chunk)
 {
 	size_t	sz;
-	int		mid;
-	int		*bottom;
 	t_chunk	*b_chunk;
 
 	b_chunk = NULL;
-	bottom = chunk->top - chunk->size + 1;
-	while(!issorted(bottom, chunk->size, DESC))
+	while(!issorted(a_chunk->top - a_chunk->size + 1, a_chunk->size, DESC))
 	{
-		if (chunk->size == 2)
+		if (a_chunk->size == 2)
 		{
 				op(data, "sa");
 				break ;
 		}
 		b_chunk = lstadd_chunk(data);
-		mid = nth_element_copy(data, bottom, chunk->size, chunk->size / 2);
-		sz = partition_a_lt(data, chunk, mid);
+		sz = partition_a_lt(data, a_chunk);
 		b_chunk->top = data->b->top;
 		b_chunk->size = sz;
 	}

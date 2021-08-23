@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 00:45:27 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/24 01:51:02 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,14 +126,8 @@ int main(int argc, char **argv)
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
 
-	/* printf("%sSTACK A:%s\n", color, NC); */
-	/* debug(data.a); */
-
 	if (!empty(data.a))
 		push_swap(&data);
-
-	/* printf("%sSTACK A:%s\n", color, NC); */
-	/* debug(data.a); */
 
 	ft_lstiter(data.ops, printop);
 	cleanup(&data);
