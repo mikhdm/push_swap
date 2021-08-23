@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/23 04:00:58 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/23 04:55:11 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,53 +135,20 @@ static t_chunk	*lstadd_chunk(t_data *data)
 	return (chunk);
 }
 
-/* 
-* Allocate cache and copy current chunk to find mid element. 
-* Mandatory due to partition operation of nth_element work and swaps in-place
-* to save actual chunk unchanged.
-*/
-static int	mid_element(t_data *data, int *values, size_t size)
-{
-	int	*cache;
-	int	mid;
-
-	cache = NULL;
-	if (!alloca_to((void **)&cache, sizeof(int) * size))
-		pexit(data, EXIT_FAILURE);
-	ft_memcpy(cache, values, sizeof(int) * size);
-	mid = nth_element(cache, size, size / 2);
-	free(cache);
-	return (mid);
-}
-
-/* static void	push_swap_g_ab(t_data *data, int *values, int size, int mid) */
-/* { */
-
-/* } */
-
-/* static void	push_swap_g_ba(t_data *data, int *values, int size, int mid) */
-/* { */
-
-/* } */
-
 /*
-* push_swap_g - push_swap generic machinery for cases when size > 5.
+* break stack A elements into chunks and put them into B
 */
-static void push_swap_g(t_data *data)
+static void	chunking_init(t_data *data)
 {
 	int 	mid;
 	t_chunk	*chunk;
 
-	if (issorted(data->a->data, data->a->size, FALSE))
-		return ;
-
-	/* first part of machinery - break stack A elements into chunks and
-	 * put them into B */
+	chunk = NULL;
 	while (!empty(data->a) && !issorted(data->a->data, data->a->size, FALSE))
 	{
 		chunk = lstadd_chunk(data);
-		mid = mid_element(data, data->a->data, data->a->size);
-		/* copy chunk from A into B */
+		mid = nth_element_copy(data, data->a->data, data->a->size,
+				data->a->size / 2);
 		while (find_lt(data->a->data, data->a->size, mid) != -1)
 		{
 			if (*data->a->top < mid)
@@ -198,6 +165,15 @@ static void push_swap_g(t_data *data)
 		if (data->a->size <= 3)
 			push_swap23(data);
 	}
+}
+/*
+* push_swap_g - push_swap generic machinery for cases when size > 5.
+*/
+static void push_swap_g(t_data *data)
+{
+	if (issorted(data->a->data, data->a->size, FALSE))
+		return ;
+	chunking_init(data);
 
 	/* second part -- put data from chunks into A before chunk will be sorted in A. */
 	/* size_t	rbc; */
