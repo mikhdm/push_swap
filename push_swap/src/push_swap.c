@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 00:40:53 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/24 00:45:49 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,13 @@ static void debug_showsize(void *content)
 }
 
 
-void	debug(t_stack *stack, char *color)
+void	debug(t_stack *stack)
 {
 	size_t	i;
+	char *color;
 
 	i = stack->capacity;
+	color = issorted(stack->data, stack->size, DESC) ? GREEN : RED;
 	printf("\n-- DEBUG --\n\n");
 	while (i > 0)
 	{
@@ -170,50 +172,10 @@ static void push_swap_g(t_data *data)
 		return ;
 	chunking_initial(data);
 
-	debug(data->a, issorted(data->a->data, data->a->size, DESC) ? GREEN : RED);
-	debug(data->b, issorted(data->b->data, data->b->size, DESC) ? GREEN : RED);
+	debug(data->a);
+	debug(data->b);
 	ft_lstiter(data->chunks, debug_showsize);
 
-	/* second part -- put data from chunks into A before chunk will be sorted in A. */
-	/* size_t	achunksize; */
-	/* t_list	*newnode; */
-	/* t_chunk	*newchunk; */
-	/* node = data->chunks; */
-	/* chunk = NULL; */
-
-	/* newnode = NULL; */
-	/* newchunk = NULL; */
-	/* while (node) */
-	/* { */
-	/* 	chunk = (t_chunk *)node->content; */
-	/* 	while (TRUE) */
-	/* 	{ */
-	/* 		if (mid_element_to(chunk->top + chunk->size - 1, chunk->size, &mid) == NULL) */
-	/* 		{ */
-	/* 			ft_lstclear(&chunks, free); */
-	/* 			pexit(data, EXIT_FAILURE); */
-	/* 		} */
-	/* 		if (issorted(chunk->top + chunk->size - 1, chunk->size, TRUE)) */
-	/* 		{ */
-	/* 			while(chunk->size--) */
-	/* 				op(data, "pa"); */
-	/* 			chunk->top = NULL; */
-	/* 		} */
-	/* 		else if (chunk->size == 2) */
-	/* 		{ */
-	/* 			if (*chunk->top < *(chunk->top - 1)) */
-	/* 				op(data, "sb"); */
-	/* 			while (chunk->size--) */
-	/* 				op(data, "pa"); */
-	/* 			chunk->top = NULL; */
-	/* 		} */
-	/* 		else */
-	/* 		{ */
-	/* 		} */
-	/* 	} */
-	/* 	node = node->next; */
-	/* } */
-	
 	t_chunk	a_chunk;
 	t_chunk	*b_chunk;
 	t_list	*node;
@@ -261,8 +223,8 @@ static void push_swap_g(t_data *data)
 	/* while (!empty(data->b)) */
 	/* 	op(data, "pa"); */
 
-	debug(data->a, issorted(data->a->data, data->a->size, DESC) ? GREEN : RED);
-	debug(data->b, issorted(data->b->data, data->b->size, DESC) ? GREEN : RED);
+	debug(data->a);
+	debug(data->b);
 	ft_lstiter(data->chunks, debug_showsize);
 }
 

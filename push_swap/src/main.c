@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 00:41:00 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/24 00:45:27 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,29 +95,6 @@ int	*parse(size_t argc, char **argv)
 	return (data);
 }
 
-/* void	debug(t_stack *stack, char *color) */
-/* { */
-/* 	size_t	i; */
-
-/* 	i = stack->capacity; */
-/* 	printf("\n-- DEBUG --\n\n"); */
-/* 	while (i > 0) */
-/* 	{ */
-/* 		if (i > stack->size) */
-/* 			printf("%s|%6s|%s\n", color, "", NC); */
-/* 		else */
-/* 			printf("%s|%6d|%s (%p)\n", color, stack->data[i - 1], NC, &stack->data[i - 1]); */
-/* 		--i; */
-/* 	} */
-/* 	printf("capacity: %zu\n", stack->capacity); */
-/* 	printf("size: %zu\n", stack->size); */
-/* 	if (stack->top) */
-/* 		printf("top: %d (%p)\n", *stack->top, stack->top); */
-/* 	else */
-/* 		printf("top: null\n"); */
-/* 	printf("\n-- END --\n\n"); */
-/* } */
-
 void	printop(void *op)
 {
 	const char endl = '\n';
@@ -149,18 +126,14 @@ int main(int argc, char **argv)
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
 
-	/* char *color; */
-	
-	/* color = issorted(data.a->data, data.a->size, FALSE) ? GREEN : RED; */
 	/* printf("%sSTACK A:%s\n", color, NC); */
-	/* debug(data.a, color); */
+	/* debug(data.a); */
 
 	if (!empty(data.a))
 		push_swap(&data);
 
-	/* color = issorted(data.a->data, data.a->size, FALSE) ? GREEN : RED; */
 	/* printf("%sSTACK A:%s\n", color, NC); */
-	/* debug(data.a, color); */
+	/* debug(data.a); */
 
 	ft_lstiter(data.ops, printop);
 	cleanup(&data);

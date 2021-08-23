@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:08:55 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 00:40:58 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/24 00:44:55 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ t_chunk	*lstadd_chunk(t_data *data);
 #define YELLOW "\033[0;33m"
 #define NC "\033[0m"
 
-void	debug(t_stack *stack, char *color);
+void	debug(t_stack *stack);
 
 #endif
