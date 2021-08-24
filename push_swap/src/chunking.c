@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:49:32 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 02:13:30 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/24 21:39:22 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 */
 void	chunking_a_lt(t_data *data, t_chunk *a_chunk)
 {
-	size_t	sz;
 	t_chunk	*b_chunk;
 
 	b_chunk = NULL;
@@ -40,9 +39,16 @@ void	chunking_a_lt(t_data *data, t_chunk *a_chunk)
 				op(data, "sa");
 				break ;
 		}
+		if (a_chunk->size == 3)
+		{
+			if (ft_max(a_chunk->top - a_chunk->size + 1, a_chunk->size) == 0)
+			{
+				op(data, "sa");
+				continue ;
+			}
+		}
 		b_chunk = lstadd_chunk(data);
-		sz = partition_a_lt(data, a_chunk);
+		b_chunk->size = partition_a_lt(data, a_chunk);
 		b_chunk->top = data->b->top;
-		b_chunk->size = sz;
 	}
 }

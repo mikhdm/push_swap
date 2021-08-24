@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 02:13:29 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/24 21:35:52 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static void	push_swap45(t_data *data)
 		op(data, "pa");
 }
 
-
 /* static void debug_showsize(void *content) */
 /* { */
 /* 	t_chunk *ch; */
@@ -84,7 +83,6 @@ static void	push_swap45(t_data *data)
 /* 	printf("--\nchunk top: %p\n", ch->top); */ 
 /* 	printf("chunk size: %zu\n--\n", ch->size); */
 /* } */
-
 
 void	debug(t_stack *stack)
 {
@@ -132,6 +130,34 @@ t_chunk	*lstadd_chunk(t_data *data)
 	return (chunk);
 }
 
+/* static	void	minisort_a(t_data *data) */
+/* { */
+/* 	size_t	ind; */
+/* 	size_t	imid; */
+/* 	int		value; */
+/* 	size_t	pb_cnt; */
+	
+/* 	pb_cnt = 0; */
+/* 	imid = data->a->size / 2; */
+/* 	while (!issorted(data->a->data, data->a->size, DESC)) */
+/* 	{ */
+/* 		ind = ft_min(data->a->data, data->a->size); */ 
+/* 		value = data->a->data[ind]; */
+/* 		if (ind >= imid) */
+/* 			while (*data->a->top != value) */
+/* 				op(data, "ra"); */
+/* 		else */
+/* 			while (*data->a->top != value) */
+/* 				op(data, "rra"); */
+/* 		op(data, "pb"); */
+/* 		++pb_cnt; */
+/* 		if (data->a->size <= 3) */
+/* 			push_swap23(data); */
+/* 	} */
+/* 	while (pb_cnt--) */
+/* 		op(data, "pa"); */
+/* } */
+
 /*
 * break stack A elements into chunks and put them into B
 */
@@ -178,6 +204,10 @@ static void push_swap_g(t_data *data)
 	if (issorted(data->a->data, data->a->size, DESC))
 		return ;
 	chunking_initial(data);
+
+	/* debug(data->a); */
+	/* debug(data->b); */
+	/* ft_lstiter(data->chunks, debug_showsize); */
 
 	a_chunk = (t_chunk){.top = NULL, .size = 0};
 	b_chunk = NULL;
