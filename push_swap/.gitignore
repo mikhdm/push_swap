@@ -4,3 +4,6 @@ compile_commands.json
 .idea/
 checker_Mac
 checker_linux
+*.d
+*.o
+push_swap
