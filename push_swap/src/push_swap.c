@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 21:35:52 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/25 02:18:00 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ static void	push_swap45(t_data *data)
 		op(data, "pa");
 }
 
-/* static void debug_showsize(void *content) */
-/* { */
-/* 	t_chunk *ch; */
+void debug_showsize(void *content)
+{
+	t_chunk *ch;
 
-/* 	ch = (t_chunk *)content; */
-/* 	printf("--\nchunk top: %p\n", ch->top); */ 
-/* 	printf("chunk size: %zu\n--\n", ch->size); */
-/* } */
+	ch = (t_chunk *)content;
+	printf("--\nchunk top: %p\n", ch->top); 
+	printf("chunk size: %zu\n--\n", ch->size);
+}
 
 void	debug(t_stack *stack)
 {
@@ -208,6 +208,7 @@ static void push_swap_g(t_data *data)
 	/* debug(data->a); */
 	/* debug(data->b); */
 	/* ft_lstiter(data->chunks, debug_showsize); */
+	/* exit(0); */
 
 	a_chunk = (t_chunk){.top = NULL, .size = 0};
 	b_chunk = NULL;
@@ -237,6 +238,12 @@ static void push_swap_g(t_data *data)
 				op(data, "sb");
 			continue ;
 		}
+		if (b_chunk->size == 3)
+			if (ft_min(bottom, b_chunk->size) == 0)
+			{
+				op(data, "sb");
+				continue ;
+			}
 		sz = partition_b_gt(data, b_chunk);
 		a_chunk.size = sz;
 		a_chunk.top = data->a->top;

@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 01:05:52 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/23 04:46:04 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/25 04:09:03 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ size_t		ft_max(int *values, size_t size);
 ssize_t		find_gt(int const *values, size_t size, int value);
 ssize_t		find_lt(int const *values, size_t size, int value);
 int			nth_element_copy(void *data, int *values, size_t size, size_t ind);
+int			ft_linsearch(int *values, int size, int value);
 
 #endif

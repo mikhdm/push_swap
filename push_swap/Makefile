@@ -40,6 +40,7 @@ SRCS =  ./src/utils/alloca_to.c \
 		./src/utils/ft_strcmp.c \
 		./src/utils/find_gt.c \
 		./src/utils/find_lt.c \
+		./src/utils/ft_linsearch.c \
 		./src/op.c \
 		./src/chunking.c \
 		./src/partition.c \

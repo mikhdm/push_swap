@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 01:51:02 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/25 04:47:13 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	*parse(size_t argc, char **argv)
 	return (data);
 }
 
-void	printop(void *op)
+static	void	printop(void *op)
 {
 	const char endl = '\n';
 	
@@ -103,14 +103,37 @@ void	printop(void *op)
 	write(STDOUT_FILENO, &endl, 1);
 }
 
+int *indexify(t_data *data, int *values, int size)
+{
+	int		i;
+	int		*copy;
+
+	i = 0;
+	if (!alloca_to((void **)&copy, sizeof(int) * size))
+	{
+		free(values);
+		pexit(data, EXIT_FAILURE);
+	}
+	ft_memcpy(copy, values, sizeof(int) * size);
+	ft_qsort(copy, 0, size);
+	while (i < size)
+	{
+		values[i] = ft_linsearch(copy, size, values[i]);
+		++i;
+	}
+	free(copy);
+	return (values);
+}
+
 int main(int argc, char **argv)
 {
 	t_data	data;
 	int		*values;
+	int		*indices;
 	
 	values = NULL;
-	data = (t_data){.a = NULL, .b = NULL, .ops = NULL,
-					.chunks = NULL};
+	indices = NULL;
+	data = (t_data){.a = NULL, .b = NULL, .ops = NULL, .chunks = NULL};
 	if (!valid(--argc, ++argv))
 		pexit(NULL, EXIT_FAILURE);
 	values = parse(argc, argv);
@@ -118,17 +141,15 @@ int main(int argc, char **argv)
 		pexit(NULL, EXIT_FAILURE);
 	if (duplicated(values, argc))
 		pexit(NULL, EXIT_FAILURE);
-	data.a = build(values, argc);
+	data.a = build(indexify(&data, values, argc), argc);
 	free(values);
 	if (!data.a)
 		pexit(NULL, EXIT_FAILURE);
 	data.b = build(NULL, argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
-
 	if (!empty(data.a))
 		push_swap(&data);
-
 	ft_lstiter(data.ops, printop);
 	cleanup(&data);
 	return (0);

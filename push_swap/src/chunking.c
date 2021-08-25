@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:49:32 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/24 21:39:22 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/25 01:08:36 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "stack.h"
 #include "utils.h"
 #include "push_swap.h"
+#include <stdio.h>
 
 /*
 * @brief Chunking of stack A part based on less than comparison.
