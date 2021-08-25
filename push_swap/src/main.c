@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/25 04:47:13 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/25 21:40:27 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	*parse(size_t argc, char **argv)
 	return (data);
 }
 
-static	void	printop(void *op)
+void	printop(void *op)
 {
 	const char endl = '\n';
 	
@@ -125,6 +125,66 @@ int *indexify(t_data *data, int *values, int size)
 	return (values);
 }
 
+void	optimize(t_data *data)
+{
+	t_list		*curr;
+	t_list		*next;
+	t_list		*prev;
+	const char	*lop;
+	const char	*rop;
+
+	curr = data->ops;
+	prev = data->ops;
+	next = data->ops;
+	lop = NULL;
+	rop = NULL;
+	while (curr)
+	{
+		next = curr->next;
+		if (!next)
+			break ;
+		lop = (const char *)curr->content;
+		rop = (const char *)next->content;
+		if ((ft_strcmp(lop, "rra") == 0 && ft_strcmp(rop, "ra") == 0)
+			|| (ft_strcmp(lop, "ra") == 0 && ft_strcmp(rop, "rra") == 0)
+			|| (ft_strcmp(lop, "rrb") == 0 && ft_strcmp(rop, "rb") == 0)
+			|| (ft_strcmp(lop, "rb") == 0 && ft_strcmp(rop, "rrb") == 0))
+		{
+			if (curr == data->ops)
+			{
+				data->ops = next->next;
+				ft_lstdelone(curr, free);
+				ft_lstdelone(next, free);
+				curr = data->ops;
+				prev = curr;
+			}
+			else
+			{
+				prev->next = next->next;
+				ft_lstdelone(curr, free);
+				ft_lstdelone(next, free);
+				curr = prev->next;
+			}
+			continue ;
+		}
+		prev = curr;
+		curr = next;
+	}
+}
+
+size_t	ft_lstsize(t_list *lst)
+{
+	size_t	size;
+
+	size = 0;
+	while (lst)
+	{
+		++size;
+		lst = lst->next;
+	}
+	return (size);
+}
+
 int main(int argc, char **argv)
 {
 	t_data	data;
@@ -148,8 +208,11 @@ int main(int argc, char **argv)
 	data.b = build(NULL, argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
+
 	if (!empty(data.a))
 		push_swap(&data);
+
+	optimize(&data);
 	ft_lstiter(data.ops, printop);
 	cleanup(&data);
 	return (0);
