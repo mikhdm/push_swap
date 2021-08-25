@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/25 21:40:27 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/25 21:41:07 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,10 +208,8 @@ int main(int argc, char **argv)
 	data.b = build(NULL, argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
-
 	if (!empty(data.a))
 		push_swap(&data);
-
 	optimize(&data);
 	ft_lstiter(data.ops, printop);
 	cleanup(&data);
