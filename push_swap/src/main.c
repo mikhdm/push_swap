@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/26 00:16:24 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/26 00:38:48 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,13 +185,13 @@ size_t	ft_lstsize(t_list *lst)
 	return (size);
 }
 
-
 int main(int argc, char **argv)
 {
 	t_data	data;
 	int		*values;
 	int		*indices;
-	
+	size_t	nops;
+
 	values = NULL;
 	indices = NULL;
 	data = (t_data){.a = NULL, .b = NULL, .ops = NULL, .chunks = NULL};
@@ -209,16 +209,12 @@ int main(int argc, char **argv)
 	data.b = build(NULL, argc);
 	if (!data.b)
 		pexit(&data, EXIT_FAILURE);
-
 	if (!empty(data.a))
 		push_swap(&data);
-
 	/* operations optimizations */
-	size_t	nops;
 	nops = ft_lstsize(data.ops);
 	while (nops--)
 		optimize(&data);
-
 	ft_lstiter(data.ops, printop);
 	cleanup(&data);
 	return (0);
