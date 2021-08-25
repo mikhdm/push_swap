@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/25 21:41:07 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/25 22:22:30 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,15 @@ int main(int argc, char **argv)
 		pexit(&data, EXIT_FAILURE);
 	if (!empty(data.a))
 		push_swap(&data);
-	optimize(&data);
+
+	/* operations optimizations */
+
+	size_t	nops;
+
+	nops = ft_lstsize(data.ops);
+	while (nops--)
+		optimize(&data);
+
 	ft_lstiter(data.ops, printop);
 	cleanup(&data);
 	return (0);
