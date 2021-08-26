@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/26 00:34:35 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/26 22:52:09 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ static void	push_swap45(t_data *data)
 	const size_t	imid = data->a->size / 2;
 	size_t			ind;
 	int				value;
+	size_t			pb_cnt;
 
 	if (issorted(data->a->data, data->a->size, DESC))
 		return ;
-	while (TRUE)
+	pb_cnt = 0;
+	while (data->a->size != 3)
 	{
 		ind = ft_min(data->a->data, data->a->size);
 		value = data->a->data[ind];
@@ -67,11 +69,10 @@ static void	push_swap45(t_data *data)
 			while (*data->a->top != value)
 				op(data, "rra");
 		op(data, "pb");
-		if (data->a->size == 3)
-			break ;
+		++pb_cnt;
 	}
 	push_swap23(data);
-	while (!empty(data->b))
+	while (pb_cnt--)
 		op(data, "pa");
 }
 
@@ -202,30 +203,30 @@ void	minisort_a(t_data *data)
 */
 static void	chunking_initial(t_data *data)
 {
-	int 	mid;
+	int 	div;
 	t_chunk	*chunk;
 
 	chunk = NULL;
 	while (!empty(data->a) && !issorted(data->a->data, data->a->size, DESC))
 	{
 		chunk = lstadd_chunk(data);
-		mid = nth_element_copy(data, data->a->data, data->a->size,
-				data->a->size / 3);
-		while (find_lt(data->a->data, data->a->size, mid) != -1)
+		div = nth_element_copy(data, data->a->data, data->a->size,
+				data->a->size / 2.718);
+		while (find_lt(data->a->data, data->a->size, div) != -1)
 		{
-			if (*data->a->top < mid)
+			if (*data->a->top < div)
 			{
 				op(data, "pb");
 				chunk->size++;
 			}
-			else if (*data->a->data < mid)
+			else if (*data->a->data < div)
 				op(data, "rra");
 			else
 				op(data, "ra");
 		}
 		chunk->top = data->b->top;
-		if (data->a->size <= 3)
-			push_swap23(data);
+		if (data->a->size <= 5)
+			push_swap45(data);
 	}
 }
 
@@ -239,15 +240,11 @@ static void push_swap_g(t_data *data)
 	t_list	*node;
 	int		*bottom;
 	size_t	sz;
+	int		is_lastchunk;
 
 	if (issorted(data->a->data, data->a->size, DESC))
 		return ;
 	chunking_initial(data);
-
-	/* debug(data->a); */
-	/* debug(data->b); */
-	/* ft_lstiter(data->chunks, debug_showsize); */
-	/* exit(0); */
 
 	a_chunk = (t_chunk){.top = NULL, .size = 0};
 	b_chunk = NULL;
@@ -255,6 +252,9 @@ static void push_swap_g(t_data *data)
 	node = data->chunks;
 	while (node)
 	{
+		is_lastchunk = FALSE;
+		if (!node->next)
+			is_lastchunk = TRUE;
 		b_chunk = (t_chunk *)node->content;
 		if (!b_chunk->top)
 		{
@@ -283,7 +283,7 @@ static void push_swap_g(t_data *data)
 				op(data, "sb");
 				continue ;
 			}
-		sz = partition_b_gt(data, b_chunk);
+		sz = partition_b_gt(data, b_chunk, is_lastchunk);
 		a_chunk.size = sz;
 		a_chunk.top = data->a->top;
 		chunking_a_lt(data, &a_chunk);

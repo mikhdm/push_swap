@@ -1,7 +1,15 @@
+#!/usr/bin/env bash
+
 FIRES=$1
 N=$2
 
 LENGTHS=()
+
+if [[ $(uname) == "Linux" ]]; then
+	CHECKER=./checker_linux
+elif [[ $(uname) == "Darwin" ]]; then
+	CHECKER=./checker_Mac
+fi
 
 for i in $(seq 1 $FIRES); do
 	ARG=`./gen.py $N`
@@ -10,10 +18,10 @@ for i in $(seq 1 $FIRES); do
 	INSTRUCTIONS=`./push_swap $ARG`
 	if [ -z "$INSTRUCTIONS" ]; then
 		LEN=`echo -n $INSTRUCTIONS | tr " " "\n" | wc -l | xargs`
-		VERDICT=`echo -n $INSTRUCTIONS | tr " " "\n" | ./checker_Mac $ARG | tr -d "\n"`
+		VERDICT=`echo -n $INSTRUCTIONS | tr " " "\n" | $CHECKER $ARG | tr -d "\n"`
 	else
 		LEN=`echo $INSTRUCTIONS | tr " " "\n" | wc -l | xargs`
-		VERDICT=`echo $INSTRUCTIONS | tr " " "\n" | ./checker_Mac $ARG | tr -d "\n"`
+		VERDICT=`echo $INSTRUCTIONS | tr " " "\n" | $CHECKER $ARG | tr -d "\n"`
 	fi
 	if [[ $VERDICT == "OK" ]]; then
 		printf "\e[1;32m%s\e[0m\n" $VERDICT
@@ -29,4 +37,3 @@ MAX=`echo $SORTED | tr ' ' '\n' | tail -n1`
 
 printf "max ops count: %s\n" $MAX
 printf "min ops count: %s\n" $MIN
-

@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:46:03 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/26 00:30:39 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/26 22:34:35 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ size_t	partition_a_lt(t_data *data, t_chunk *chunk)
 * 
 * @return Count of elements put into stack A.
 */
-size_t	partition_b_gt(t_data *data, t_chunk *chunk)
+size_t	partition_b_gt(t_data *data, t_chunk *chunk, int is_lastchunk)
 {
 	size_t	pa_cnt;
 	size_t	rb_cnt;
@@ -94,21 +94,43 @@ size_t	partition_b_gt(t_data *data, t_chunk *chunk)
 	rb_cnt = 0;
 	mid = nth_element_copy(data, chunk->top - chunk->size + 1,
 			chunk->size, chunk->size / 2);
-	while (find_gt(chunk->top - chunk->size + 1, chunk->size, mid) != -1)
+	if (!is_lastchunk)
 	{
-		if (*chunk->top > mid)
+		while (find_gt(chunk->top - chunk->size + 1, chunk->size, mid) != -1)
 		{
-			op(data, "pa");
-			++pa_cnt;
-			--chunk->top;
+			if (*chunk->top > mid)
+			{
+				op(data, "pa");
+				++pa_cnt;
+				--chunk->top;
+			}
+			else
+			{
+				op(data, "rb");
+				++rb_cnt;
+			}
+			--chunk->size;
 		}
-		else
-		{
-			op(data, "rb");
-			++rb_cnt;
-		}
-		--chunk->size;
+		partition_b_gt_rrb(data, chunk, rb_cnt);
 	}
-	partition_b_gt_rrb(data, chunk, rb_cnt);
+	else
+	{
+		int *bottom = chunk->top - chunk->size + 1;
+		while(find_gt(bottom, chunk->size, mid) != -1)
+		{
+			if (*chunk->top > mid)
+			{
+				op(data, "pa");
+				++pa_cnt;
+				--chunk->top;
+				--chunk->size;
+			}
+			else if (*bottom > mid)
+				op(data, "rrb");
+			else
+				op(data, "rb");
+		}
+	}
 	return (pa_cnt);
 }
+
