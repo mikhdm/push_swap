@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/27 22:20:08 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/28 01:14:48 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ static void	chunking_initial(t_data *data)
 		chunk->top = data->b->top;
 		if (data->a->size <= 5)
 			push_swap45(data);
-		else if (data->a->size <= 12)
+		else if (data->a->size <= 10)
 		{
 			if (*data->a->top > *(data->a->top - 1))
 				op(data, "sa");

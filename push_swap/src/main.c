@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/26 00:38:48 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/28 01:35:16 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ void	optimize(t_data *data)
 		if ((ft_strcmp(lop, "rra") == 0 && ft_strcmp(rop, "ra") == 0)
 			|| (ft_strcmp(lop, "ra") == 0 && ft_strcmp(rop, "rra") == 0)
 			|| (ft_strcmp(lop, "rrb") == 0 && ft_strcmp(rop, "rb") == 0)
+			|| (ft_strcmp(lop, "pa") == 0 && ft_strcmp(rop, "pb") == 0)
+			|| (ft_strcmp(lop, "pb") == 0 && ft_strcmp(rop, "pa") == 0)
 			|| (ft_strcmp(lop, "rb") == 0 && ft_strcmp(rop, "rrb") == 0))
 		{
 			if (curr == data->ops)
