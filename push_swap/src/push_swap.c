@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/27 15:07:47 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/27 17:10:43 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,12 +285,6 @@ static void push_swap_g(t_data *data)
 				continue ;
 			}
 		}
-		/* if (ft_max(b_chunk->top - b_chunk->size + 1, b_chunk->size) == (b_chunk->size - 1)) */
-		/* { */
-		/* 	--b_chunk->size; */
-		/* 	op(data, "pa"); */
-		/* 	continue ; */
-		/* } */
 		sz = partition_b_gt(data, b_chunk, is_lastchunk);
 		a_chunk.size = sz;
 		a_chunk.top = data->a->top;
