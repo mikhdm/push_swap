@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/27 17:10:43 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/27 22:20:08 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 /*
 * push_swap23 - push_swap machinery for size = 2 or 3.
 */
-static void	push_swap23(t_data *data)
+static	void	push_swap23(t_data *data)
 {
 	const size_t	imid = 1;
 	size_t			ind;
@@ -48,7 +48,7 @@ static void	push_swap23(t_data *data)
 /*
 * push_swap5 - push_swap machinery for size = 4 or 5.
 */
-static void	push_swap45(t_data *data)
+static	void	push_swap45(t_data *data)
 {
 	const size_t	imid = data->a->size / 2;
 	size_t			ind;
@@ -227,6 +227,13 @@ static void	chunking_initial(t_data *data)
 		chunk->top = data->b->top;
 		if (data->a->size <= 5)
 			push_swap45(data);
+		else if (data->a->size <= 12)
+		{
+			if (*data->a->top > *(data->a->top - 1))
+				op(data, "sa");
+			else
+				op(data, "rra");
+		}
 	}
 }
 
@@ -238,7 +245,6 @@ static void push_swap_g(t_data *data)
 	t_chunk	a_chunk;
 	t_chunk	*b_chunk;
 	t_list	*node;
-	int		*bottom;
 	size_t	sz;
 	int		is_lastchunk;
 
@@ -248,7 +254,6 @@ static void push_swap_g(t_data *data)
 
 	a_chunk = (t_chunk){.top = NULL, .size = 0};
 	b_chunk = NULL;
-	bottom = NULL;
 	node = data->chunks;
 	while (node)
 	{
@@ -261,8 +266,7 @@ static void push_swap_g(t_data *data)
 			node = node->next;
 			continue ;
 		}
-		bottom = b_chunk->top - b_chunk->size + 1;
-		if (issorted(bottom, b_chunk->size, ASC))
+		if (issorted(b_chunk->top - b_chunk->size + 1, b_chunk->size, ASC))
 		{
 			while (b_chunk->size--)
 				op(data, "pa");
@@ -279,7 +283,7 @@ static void push_swap_g(t_data *data)
 		}
 		if (b_chunk->size == 3)
 		{
-			if (ft_min(bottom, b_chunk->size) == 0)
+			if (ft_min(b_chunk->top - b_chunk->size + 1, b_chunk->size) == 0)
 			{
 				op(data, "sb");
 				continue ;

@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:46:03 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/27 13:29:27 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/27 22:19:11 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,7 @@ size_t	partition_b_gt(t_data *data, t_chunk *chunk, int is_lastchunk)
 	}
 	else
 	{
-		int *bottom = chunk->top - chunk->size + 1;
-		while(find_gt(bottom, chunk->size, mid) != -1)
+		while(find_gt(chunk->top - chunk->size + 1, chunk->size, mid) != -1)
 		{
 			if (*chunk->top > mid)
 			{
@@ -126,7 +125,7 @@ size_t	partition_b_gt(t_data *data, t_chunk *chunk, int is_lastchunk)
 				--chunk->top;
 				--chunk->size;
 			}
-			else if (*bottom > mid)
+			else if (*(chunk->top - chunk->size + 1) > mid)
 				op(data, "rrb");
 			else
 				op(data, "rb");
