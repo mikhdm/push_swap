@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:46:03 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/26 22:34:35 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/27 13:29:27 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "utils.h"
 #include "stack.h"
 #include "op.h"
+#include <stdio.h>
 
 static	void	partition_a_lt_rra(t_data *data, t_chunk *chunk, size_t ra_cnt)
 {
@@ -133,4 +134,3 @@ size_t	partition_b_gt(t_data *data, t_chunk *chunk, int is_lastchunk)
 	}
 	return (pa_cnt);
 }
-
