@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/28 01:14:48 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/28 18:06:35 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,73 +129,6 @@ t_chunk	*lstadd_chunk(t_data *data)
 	}
 	ft_lstadd_front(&data->chunks, node);
 	return (chunk);
-}
-
-void	minisort_a(t_data *data)
-{
-	/* indexify */
-	int	*copy;
-	size_t	i;
-	
-	if(!(alloca_to((void **)&copy, sizeof(int) * data->a->size)))
-		pexit(data, EXIT_FAILURE);
-	ft_memcpy(copy, data->a->data, sizeof(int) * data->a->size); 
-	ft_qsort(copy, 0, data->a->size);
-	i = 0;
-	while (i < data->a->size)
-	{
-		data->a->data[i] = ft_linsearch(copy, (int)data->a->size, data->a->data[i]); 
-		++i;
-	}
-
-	/* radix sort for 0 1 buckets. A - backet for 1, B - bucket for 0 */
-	/* values here are lower than actual (saved in a copy) */
-	/* because lower values will output less instructions */
-	int 	max;
-	int		nbits;
-	int		b;
-	size_t	k;
-	int		value;
-	size_t	pbc;
-	size_t	size;
-
-	max = data->a->data[ft_max(data->a->data, data->a->size)];
-	size = data->a->size; 
-	nbits = 0;
-	while ((max >> nbits) != 0)
-		++nbits;
-	b = 0;
-	while (b < nbits)
-	{
-		k = 0;
-		pbc = 0;
-		while (k < size)
-		{
-			value = *data->a->top >> b;
-			if ((value & 1) == 1) 
-				op(data, "ra");
-			else
-			{
-				op(data, "pb");
-				++pbc;
-			}
-			++k;
-		}
-		while (pbc--)
-			op(data, "pa");
-		++b;
-	}
-	i = 0;
-
-	/* at this point stack A is sorted. */
-	/* because algorithms works with indices and not actual values 
-	 * we can simply copy sorted array in descending order into stack A. */
-	while (i < data->a->size)
-	{
-		data->a->data[i] = copy[data->a->size - i - 1];
-		++i;
-	}
-	free(copy);
 }
 
 /*
