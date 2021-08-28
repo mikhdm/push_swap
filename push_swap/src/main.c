@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/28 01:35:16 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 00:57:43 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,26 +103,23 @@ void	printop(void *op)
 	write(STDOUT_FILENO, &endl, 1);
 }
 
-int *indexify(t_data *data, int *values, size_t size)
+int *indexify(t_data *data, size_t size)
 {
 	size_t	i;
 	int		*copy;
 
 	i = 0;
 	if (!alloca_to((void **)&copy, sizeof(int) * size))
-	{
-		free(values);
 		pexit(data, EXIT_FAILURE);
-	}
-	ft_memcpy(copy, values, sizeof(int) * size);
+	ft_memcpy(copy, data->values, sizeof(int) * size);
 	ft_qsort(copy, 0, size);
 	while (i < size)
 	{
-		values[i] = ft_linsearch(copy, size, values[i]);
+		data->values[i] = ft_linsearch(copy, size, data->values[i]);
 		++i;
 	}
 	free(copy);
-	return (values);
+	return (data->values);
 }
 
 void	optimize(t_data *data)
@@ -187,37 +184,114 @@ size_t	ft_lstsize(t_list *lst)
 	return (size);
 }
 
-int main(int argc, char **argv)
+t_list	*ft_opscopy(t_data *data)
 {
-	t_data	data;
-	int		*values;
-	int		*indices;
-	size_t	nops;
+	t_list	*new;
+	t_list	*old;
+	t_list	*node;
+	char	*str;
+
+	node = NULL;
+	new = NULL;
+	str = NULL;
+	old = data->ops;
+	while (old)
+	{
+		str = ft_strdup_until((const char *)old->content, '\0');
+		if (!str)
+			pexit(data, EXIT_FAILURE);
+		node = ft_lstnew(str);
+		if (!node)
+		{
+			free(str);
+			pexit(data, EXIT_FAILURE);
+		}
+		ft_lstadd_back(&new, node); 
+		old = old->next;
+	}
+	return (new);
+}
+
+int	*prepare(int argc, char **argv)
+{
+	int *values;
 
 	values = NULL;
-	indices = NULL;
-	data = (t_data){.a = NULL, .b = NULL, .ops = NULL, .chunks = NULL};
 	if (!valid(--argc, ++argv))
 		pexit(NULL, EXIT_FAILURE);
 	values = parse(argc, argv);
 	if (!values)
 		pexit(NULL, EXIT_FAILURE);
 	if (duplicated(values, argc))
+	{
+		free(values);
 		pexit(NULL, EXIT_FAILURE);
-	data.a = build(indexify(&data, values, argc), argc);
-	free(values);
-	if (!data.a)
-		pexit(NULL, EXIT_FAILURE);
-	data.b = build(NULL, argc);
-	if (!data.b)
-		pexit(&data, EXIT_FAILURE);
-	if (!empty(data.a))
-		push_swap(&data);
-	/* operations optimizations */
-	nops = ft_lstsize(data.ops);
-	while (nops--)
-		optimize(&data);
-	ft_lstiter(data.ops, printop);
-	cleanup(&data);
+	}
+	return (values);
+}
+
+void	populate(t_data *data, int *values, size_t size)
+{
+	data->values = values;
+	data->a = build(indexify(data, size), size);
+	if (!data->a)
+		pexit(data, EXIT_FAILURE);
+	data->b = build(NULL, size);
+	if (!data->b)
+		pexit(data, EXIT_FAILURE);
+}
+
+
+int main(int argc, char **argv)
+{
+	t_data	data;
+	size_t	nops;
+	int		*values;
+	size_t	min;
+	size_t	div_sz;
+	size_t	i;
+	t_list	*ops;
+	const double	div[] = {1.61, 2, 2.718, 3, 3.14};
+	values = prepare(argc, argv);
+
+	i = 0;
+	min = SIZE_T_MAX;
+	div_sz = sizeof(div) / sizeof(*div);
+	ops = NULL;
+	while (i < div_sz)
+	{
+		data = (t_data){.a = NULL, .b = NULL, .ops = NULL, .chunks = NULL,
+						.values = NULL};
+		populate(&data, values, argc);
+		if (empty(data.a))
+		{
+			cleanup(&data);
+			break ;
+		}
+		push_swap(&data, div[i]);
+		/* operations optimizations */
+		nops = ft_lstsize(data.ops);
+		while (nops--)
+			optimize(&data);
+		nops = ft_lstsize(data.ops);
+		if (nops <= min)
+		{
+			ops = ft_opscopy(&data);
+			min = nops;
+		}
+		values = NULL;
+		if (!alloca_to((void **)&values, sizeof(int) * argc))
+			pexit(&data, EXIT_FAILURE);
+		ft_memcpy(values, data.values, sizeof(int) * argc);
+		cleanup(&data);
+		++i;
+	}
+	if (values)
+		free(values);
+	if (ops)
+	{
+		ft_lstiter(ops, printop);
+		ft_lstclear(&ops, free);
+	}
 	return (0);
 }

@@ -22,9 +22,7 @@ fi
 # run tests
 for i in $(seq 1 $FIRES); do
 	ARG=`./gen.py $N`
-	printf "Arguments: "
-	echo $ARG
-	
+
 	# run push swap
 	INSTRUCTIONS=`./push_swap $ARG`
 
@@ -39,14 +37,34 @@ for i in $(seq 1 $FIRES); do
 
 	# show verdict
 	if [[ $VERDICT == "OK" ]]; then
-		printf "\e[1;32m%s\e[0m\n" $VERDICT
 		SUCCESSES=$((SUCCESSES + 1))
+		printf "\e[1;32m+\e[0m"
 	else
-		printf "\e[1;31m%s\e[0m\n" $VERDICT
 		ERRORS=$((ERRORS + 1))
+		printf "\e[1;31m-\e[0m"
 	fi
 	LENGTHS+=($LEN)
 done
+
+BOOMS=0
+BOUND=0
+if [[ $N == 100 ]]; then
+	BOUND=700
+	for len in ${LENGTHS[*]}; do
+		if [[ $len -ge 700 ]]; then
+			BOOMS=$((BOOMS + 1))
+		fi
+	done
+fi
+
+if [[ $N == 500 ]]; then
+	BOUND=5500
+	for len in ${LENGTHS[*]}; do
+		if [[ $len -ge 5500 ]]; then
+			BOOMS=$(($BOOMS + 1))
+		fi
+	done
+fi
 
 # calculate stat
 SORTED=`echo "${LENGTHS[*]}" | tr ' ' '\n' | sort`
@@ -58,3 +76,7 @@ printf "Max ops count: %s\n" $MAX
 printf "Min ops count: %s\n" $MIN
 printf "Success runs count: %d\n" $SUCCESSES
 printf "Wrong runs count: %d\n" $ERRORS
+
+if [[ ($N == 100) || ($N == 500) ]]; then
+	printf "Over max allowed ops count (N=%d (>= %d)): %d\n" $N $BOUND $BOOMS
+fi

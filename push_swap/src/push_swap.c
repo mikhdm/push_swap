@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/28 18:46:42 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 00:57:48 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,17 +134,16 @@ t_chunk	*lstadd_chunk(t_data *data)
 /*
 * break stack A elements into chunks and put them into B
 */
-static void	chunking_initial(t_data *data)
+static void	chunking_initial(t_data *data, const double divider)
 {
-	int 	div;
 	t_chunk	*chunk;
+	int		div;
 
 	chunk = NULL;
 	while (!empty(data->a) && !issorted(data->a->data, data->a->size, DESC))
 	{
 		chunk = lstadd_chunk(data);
-		div = nth_element_copy(data, data->a->data, data->a->size,
-				data->a->size / 2);
+		div = nth_element_copy(data, data->a->data, data->a->size, data->a->size / divider);
 		while (find_lt(data->a->data, data->a->size, div) != -1)
 		{
 			if (*data->a->top < div)
@@ -158,13 +157,15 @@ static void	chunking_initial(t_data *data)
 				op(data, "ra");
 		}
 		chunk->top = data->b->top;
+		if (data->a->size <= 5)
+			push_swap45(data);
 	}
 }
 
 /*
 * push_swap_g - push_swap generic machinery for cases when size > 5.
 */
-static void push_swap_g(t_data *data)
+static void push_swap_g(t_data *data, const double div)
 {
 	t_chunk	a_chunk;
 	t_chunk	*b_chunk;
@@ -174,8 +175,7 @@ static void push_swap_g(t_data *data)
 
 	if (issorted(data->a->data, data->a->size, DESC))
 		return ;
-	chunking_initial(data);
-
+	chunking_initial(data, div);
 	a_chunk = (t_chunk){.top = NULL, .size = 0};
 	b_chunk = NULL;
 	node = data->chunks;
@@ -205,14 +205,6 @@ static void push_swap_g(t_data *data)
 				op(data, "sb");
 			continue ;
 		}
-		if (b_chunk->size == 3)
-		{
-			if (ft_min(b_chunk->top - b_chunk->size + 1, b_chunk->size) == 0)
-			{
-				op(data, "sb");
-				continue ;
-			}
-		}
 		sz = partition_b_gt(data, b_chunk, is_lastchunk);
 		a_chunk.size = sz;
 		a_chunk.top = data->a->top;
@@ -228,12 +220,12 @@ static void push_swap_g(t_data *data)
  * 				all elements unique
  * 				and positive (after mapping elements to indices).
  */
-void	push_swap(t_data *data)
+void	push_swap(t_data *data, const double div)
 {
 	if (data->a->size == 2 || data->a->size == 3)
 		push_swap23(data);
 	else if (data->a->size == 4 || data->a->size == 5)
 		push_swap45(data);
 	else
-		push_swap_g(data);
+		push_swap_g(data, div);
 }
