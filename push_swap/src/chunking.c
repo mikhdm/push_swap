@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:49:32 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 09:49:23 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 10:49:43 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,47 @@
 #include "stack.h"
 #include "utils.h"
 #include "push_swap.h"
-#include <stdio.h>
+
+/*
+* @brief Initial partition of stack A.
+*
+* Takes data in a stack A, puts it into B and groups data in chunks.
+* Chunk items could not be sorted, but chunks grouped in a sorted order:
+* chunk above contains integers, which are always bigger then integers in a chunk
+* below.
+*
+* @param data Global state structure.
+* @param divider Partition constant, which used to variate sizes of chunks.
+*
+* @returns Nothing.
+*/
+void	chunking_initial(t_data *data, const double divider)
+{
+	t_chunk	*chunk;
+	int		div;
+
+	chunk = NULL;
+	while (!empty(data->a) && !issorted(data->a->data, data->a->size, DESC))
+	{
+		chunk = lstadd_chunk(data);
+		div = nth_element_copy(data, data->a->data, data->a->size, data->a->size / divider);
+		while (find_lt(data->a->data, data->a->size, div) != -1)
+		{
+			if (*data->a->top < div)
+			{
+				op(data, "pb");
+				chunk->size++;
+			}
+			else if (*data->a->data < div)
+				op(data, "rra");
+			else
+				op(data, "ra");
+		}
+		chunk->top = data->b->top;
+		if (data->a->size <= 5)
+			push_swap45(data);
+	}
+}
 
 /*
 * @brief Chunking of stack A part based on less than comparison.

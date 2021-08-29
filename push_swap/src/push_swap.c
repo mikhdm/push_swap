@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 10:36:20 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 10:45:41 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static	void	push_swap23(t_data *data)
 *
 * @returns Nothing.
 */
-static	void	push_swap45(t_data *data)
+void	push_swap45(t_data *data)
 {
 	const size_t	imid = data->a->size / 2;
 	size_t			ind;
@@ -106,37 +106,6 @@ t_chunk	*lstadd_chunk(t_data *data)
 	}
 	ft_lstadd_front(&data->chunks, node);
 	return (chunk);
-}
-
-/*
-* break stack A elements into chunks and put them into B
-*/
-static void	chunking_initial(t_data *data, const double divider)
-{
-	t_chunk	*chunk;
-	int		div;
-
-	chunk = NULL;
-	while (!empty(data->a) && !issorted(data->a->data, data->a->size, DESC))
-	{
-		chunk = lstadd_chunk(data);
-		div = nth_element_copy(data, data->a->data, data->a->size, data->a->size / divider);
-		while (find_lt(data->a->data, data->a->size, div) != -1)
-		{
-			if (*data->a->top < div)
-			{
-				op(data, "pb");
-				chunk->size++;
-			}
-			else if (*data->a->data < div)
-				op(data, "rra");
-			else
-				op(data, "ra");
-		}
-		chunk->top = data->b->top;
-		if (data->a->size <= 5)
-			push_swap45(data);
-	}
 }
 
 /*
