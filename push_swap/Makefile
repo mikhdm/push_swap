@@ -13,8 +13,8 @@
 NAME = push_swap
 CC = clang
 INCLUDE = ./include
-# CFLAGS = -fsanitize=address -fsanitize=leak -g -Wall -Wextra -Werror -MMD -I $(INCLUDE) 
-CFLAGS = -O3 -Wall -Wextra -Werror -MMD -I $(INCLUDE) 
+CFLAGS = -fsanitize=address -fsanitize=leak -g -Wall -Wextra -Werror -MMD -I $(INCLUDE) 
+# CFLAGS = -O3 -Wall -Wextra -Werror -MMD -I $(INCLUDE) 
 SRCS =  ./src/utils/alloca_to.c \
 		./src/utils/ft_atoi.c \
 		./src/utils/ft_atoss.c \

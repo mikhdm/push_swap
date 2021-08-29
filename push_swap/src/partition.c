@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:46:03 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/28 22:07:20 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 10:05:15 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ size_t	partition_a_lt(t_data *data, t_chunk *chunk)
 {
 	size_t 	pb_cnt;
 	size_t	ra_cnt;
-	int		mid;
+	int		pivot;
 
 	pb_cnt = 0;
 	ra_cnt = 0;
-	mid = nth_element_copy(data, chunk->top - chunk->size + 1,
+	pivot = nth_element_copy(data, chunk->top - chunk->size + 1,
 			chunk->size, chunk->size / 2);
-	while (find_lt(chunk->top - chunk->size + 1, chunk->size, mid) != -1)
+	while (find_lt(chunk->top - chunk->size + 1, chunk->size, pivot) != -1)
 	{
-		if (*chunk->top < mid)
+		if (*chunk->top < pivot)
 		{
 			op(data, "pb");
 			++pb_cnt;
@@ -125,6 +125,8 @@ size_t	partition_b_gt(t_data *data, t_chunk *chunk, int is_lastchunk)
 				--chunk->top;
 				--chunk->size;
 			}
+			if (*(chunk->top - 1) > mid)
+				op(data, "sb"); 
 			else if (*(chunk->top - chunk->size + 1) > mid)
 				op(data, "rrb");
 			else
