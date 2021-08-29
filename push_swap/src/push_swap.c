@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 10:45:41 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 16:27:31 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 #include <stdlib.h>
 
 /*
-* @brief Machinery for size = 2 or 3.
+* @brief Routine for size = 2 or 3.
 *
 * Takes data in a stack A and sorts them by hand.
 *
 * @param data Global state structure.
 *
-* @returns Nothing.
+* @return Nothing.
 */
 static	void	push_swap23(t_data *data)
 {
@@ -51,13 +51,13 @@ static	void	push_swap23(t_data *data)
 }
 
 /*
-* @brief Machinery for size <= 5.
+* @brief Routine for size <= 5.
 *
 * Takes data in a stack A and sorts them by hand.
 *
 * @param data Global state structure.
 *
-* @returns Nothing.
+* @return Nothing.
 */
 void	push_swap45(t_data *data)
 {
@@ -109,7 +109,16 @@ t_chunk	*lstadd_chunk(t_data *data)
 }
 
 /*
-* push_swap_g - push_swap generic machinery for cases when size > 5.
+* @brief Main routing for data sorting.
+*
+* Quick sort analog involved here. At first data goes into stack B
+* as groups of integers (chunking_initial), where every chunk above contain integers
+* bigger than in a chunk below.
+*
+* @param data Global state structure.
+* @param div Partition divider for chunking_initial routine.
+*
+* @return Nothing.
 */
 static void push_swap_g(t_data *data, const double div)
 {
@@ -160,12 +169,13 @@ static void push_swap_g(t_data *data, const double div)
 }
 
 /*
- * push_swap - main algorithm which choose appropriate
- * 				function to call for sorting.
- * 				all algorithms consider assumptions that
- * 				all elements unique
- * 				and positive (after mapping elements to indices).
- */
+* @brief Routine for choosing algorithm depending on input size.
+*
+* @param data Global state structure.
+* @param div Partition divider for chunking_initial routine.
+*
+* @return Nothing.
+*/
 void	push_swap(t_data *data, const double div)
 {
 	if (data->a->size == 2 || data->a->size == 3)
