@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/30 00:51:42 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 01:06:25 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,66 +106,6 @@ t_chunk	*lstadd_chunk(t_data *data)
 	}
 	ft_lstadd_front(&data->chunks, node);
 	return (chunk);
-}
-
-/*
-* @brief Main routing for data sorting.
-*
-* Quick sort analog involved here. At first data goes into stack B
-* as groups of integers (chunking_initial), where every chunk above
-* contains integers bigger than in a chunk below.
-*
-* @param data Global state structure.
-* @param div Partition divider for chunking_initial routine.
-*
-* @return Nothing.
-*/
-static	void	push_swap_g(t_data *data, const double div)
-{
-	t_chunk	a_chunk;
-	t_chunk	*b_chunk;
-	t_list	*node;
-	size_t	sz;
-	int		is_lastchunk;
-
-	if (issorted(data->a->data, data->a->size, DESC))
-		return ;
-	chunking_initial(data, div);
-	a_chunk = (t_chunk){.top = NULL, .size = 0};
-	b_chunk = NULL;
-	node = data->chunks;
-	while (node)
-	{
-		is_lastchunk = FALSE;
-		if (!node->next)
-			is_lastchunk = TRUE;
-		b_chunk = (t_chunk *)node->content;
-		if (!b_chunk->top)
-		{
-			node = node->next;
-			continue ;
-		}
-		if (issorted(b_chunk->top - b_chunk->size + 1, b_chunk->size, ASC))
-		{
-			while (b_chunk->size--)
-				op(data, "pa");
-			b_chunk->top = NULL;
-			b_chunk->size = 0;
-			node = node->next;
-			continue ;
-		}
-		if (b_chunk->size == 2)
-		{
-			if (*b_chunk->top < *(b_chunk->top - 1))
-				op(data, "sb");
-			continue ;
-		}
-		sz = partition_b_gt(data, b_chunk, is_lastchunk);
-		a_chunk.size = sz;
-		a_chunk.top = data->a->top;
-		chunking_a_lt(data, &a_chunk);
-		node = data->chunks;
-	}
 }
 
 /*

@@ -45,6 +45,7 @@ set(SRCS
 ./src/partition_a.c
 ./src/partition_b.c
 ./src/optimize.c
+./src/push_swap_g.c
 ./src/push_swap.c
 ./src/main.c
 ./src/error.c

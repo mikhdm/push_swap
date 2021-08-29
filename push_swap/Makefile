@@ -6,7 +6,7 @@
 #    By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 14:27:56 by rmander           #+#    #+#              #
-#   Updated: 2021/08/19 17:01:27 by rmander          ###   ########.fr       # #
+#   Updated: 2021/08/30 01:11:39 by rmander          ###   ########.fr       # #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS =  ./src/utils/alloca_to.c \
 		./src/partition_a.c \
 		./src/partition_b.c \
 		./src/push_swap.c \
+		./src/push_swap_g.c \
 		./src/error.c \
 		./src/stackex.c \
 		./src/stack.c \
