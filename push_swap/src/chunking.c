@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:49:32 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 17:46:22 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 20:22:43 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,32 @@ void	chunking_initial(t_data *data, const double divider)
 	}
 }
 
+static int	chunking_a_lt34(t_data *data, t_chunk *a_chunk)
+{
+	if (a_chunk->size == 3)
+		if (ft_max(a_chunk->top - a_chunk->size + 1, a_chunk->size) == 0)
+		{
+			op(data, "sa");
+			return (0) ;
+		}
+	if (a_chunk->size == 4)
+	{
+		op(data, "pb");
+		op(data, "pb");
+		if (a_chunk->top[0] > a_chunk->top[-1]
+			&& data->b->top[0] < data->b->top[-1])
+		{
+			op(data, "ss");
+			op(data, "pa");
+			op(data, "pa");
+			return (0);
+		}
+		op(data, "pa");
+		op(data, "pa");
+	}
+	return (-1);
+}
+
 /*
 * @brief Chunking of stack A part based on less than comparison.
 *
@@ -77,30 +103,11 @@ void	chunking_a_lt(t_data *data, t_chunk *a_chunk)
 	{
 		if (a_chunk->size == 2)
 		{
-				op(data, "sa");
-				break ;
+			op(data, "sa");
+			break ;
 		}
-		if (a_chunk->size == 3)
-			if (ft_max(a_chunk->top - a_chunk->size + 1, a_chunk->size) == 0)
-			{
-				op(data, "sa");
-				continue ;
-			}
-		if (a_chunk->size == 4)
-		{
-			op(data, "pb");
-			op(data, "pb");
-			if (a_chunk->top[0] > a_chunk->top[-1]
-				&& data->b->top[0] < data->b->top[-1])
-			{
-				op(data, "ss");
-				op(data, "pa");
-				op(data, "pa");
-				continue ;
-			}
-			op(data, "pa");
-			op(data, "pa");
-		}
+		if (chunking_a_lt34(data, a_chunk) == 0)
+			continue ;
 		b_chunk = lstadd_chunk(data);
 		b_chunk->size = partition_a_lt(data, a_chunk);
 		b_chunk->top = data->b->top;

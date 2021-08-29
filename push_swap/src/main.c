@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 18:29:38 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 20:22:07 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ static t_list	*opselect(int *values, size_t size)
 	size_t	min;
 	t_list	*ops;
 	t_data	data;
-	const double	div[] = {1.5, 1.61, 2, 2.718, 3, 3.14, 3.5, 3.71, 5.436, 5.71};
+	const double	div[] = {1.2, 1.5, 1.61, 2, 2.718, 3, 3.14, 3.5,
+							3.71, 5.436, 5.71};
 
 	i = 0;
 	ops = NULL;
