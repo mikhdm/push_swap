@@ -6,7 +6,7 @@
 #    By: vbrazhni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/29 17:15:18 by vbrazhni          #+#    #+#              #
-/*   Updated: 2021/08/29 23:59:12 by rmander          ###   ########.fr       */
+#    Updated: 2021/08/30 01:40:33 by rmander          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIMIT=700
 FILE=problem_100
 SUM=0
 
-for i in {1..500}
+for i in {1..1000}
 do
 		export ARG=`ruby -e "puts (1..100).to_a.shuffle.join(' ')"`
 		if ./push_swap $ARG | ./checker_Mac $ARG | grep -q KO
