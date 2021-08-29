@@ -32,11 +32,15 @@ set(SRCS
 ./src/utils/ft_lstadd_front.c
 ./src/utils/ft_lstdelone.c
 ./src/utils/ft_lstclear.c
+./src/utils/ft_lstsize.c
 ./src/utils/ft_strcmp.c
 ./src/utils/find_gt.c
 ./src/utils/find_lt.c
 ./src/utils/ft_linsearch.c
+./src/utils/iarrdup.c
 ./src/op.c
+./src/parse.c
+./src/optimize.c
 ./src/push_swap.c
 ./src/main.c
 ./src/error.c
