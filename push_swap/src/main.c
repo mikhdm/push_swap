@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 10:13:49 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 10:29:18 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 	size_t	runs;
 	size_t	nops;
 	size_t	i;
-	const double	div[] = {1.5, 1.61, 2, 2.718, 3, 3.14};
+	const double	div[] = {1.5, 1.61, 2, 2.718, 3, 3.14, 3.5};
 
 	i = 0;
 	min = SIZE_T_MAX;

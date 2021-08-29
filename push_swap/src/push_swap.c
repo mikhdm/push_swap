@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 09:47:48 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 10:36:20 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@
 #include "stack.h"
 #include "utils.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 /*
-* push_swap23 - push_swap machinery for size = 2 or 3.
+* @brief Machinery for size = 2 or 3.
+*
+* Takes data in a stack A and sorts them by hand.
+*
+* @param data Global state structure.
+*
+* @returns Nothing.
 */
 static	void	push_swap23(t_data *data)
 {
@@ -46,7 +51,13 @@ static	void	push_swap23(t_data *data)
 }
 
 /*
-* push_swap5 - push_swap machinery for size = 4 or 5.
+* @brief Machinery for size <= 5.
+*
+* Takes data in a stack A and sorts them by hand.
+*
+* @param data Global state structure.
+*
+* @returns Nothing.
 */
 static	void	push_swap45(t_data *data)
 {
@@ -74,40 +85,6 @@ static	void	push_swap45(t_data *data)
 	push_swap23(data);
 	while (pb_cnt--)
 		op(data, "pa");
-}
-
-void debug_showsize(void *content)
-{
-	t_chunk *ch;
-
-	ch = (t_chunk *)content;
-	printf("--\nchunk top: %p\n", ch->top); 
-	printf("chunk size: %zu\n--\n", ch->size);
-}
-
-void	debug(t_stack *stack)
-{
-	size_t	i;
-	char *color;
-
-	i = stack->capacity;
-	color = issorted(stack->data, stack->size, DESC) ? GREEN : RED;
-	printf("\n-- DEBUG --\n\n");
-	while (i > 0)
-	{
-		if (i > stack->size)
-			printf("%s|%12s|%s\n", color, "", NC);
-		else
-			printf("%s|%12d|%s (%p)\n", color, stack->data[i - 1], NC, &stack->data[i - 1]);
-		--i;
-	}
-	printf("capacity: %zu\n", stack->capacity);
-	printf("size: %zu\n", stack->size);
-	if (stack->top)
-		printf("top: %d (%p)\n", *stack->top, stack->top);
-	else
-		printf("top: null\n");
-	printf("\n-- END --\n\n");
 }
 
 t_chunk	*lstadd_chunk(t_data *data)
