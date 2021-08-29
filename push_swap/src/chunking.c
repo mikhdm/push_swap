@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:49:32 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 20:22:43 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 23:37:22 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 *
 * Takes data in a stack A, puts it into B and groups data in chunks.
 * Chunk items could not be sorted, but chunks grouped in a sorted order:
-* chunk above contains integers, which are always bigger then integers in a chunk
+* chunk above contains integers, which are always bigger than integers in a chunk
 * below.
 *
 * @param data Global state structure.
@@ -37,7 +37,8 @@ void	chunking_initial(t_data *data, const double divider)
 	while (!empty(data->a) && !issorted(data->a->data, data->a->size, DESC))
 	{
 		chunk = lstadd_chunk(data);
-		div = nth_element_copy(data, data->a->data, data->a->size, data->a->size / divider);
+		div = nth_element_copy(data, data->a->data, data->a->size,
+							   data->a->size / divider);
 		while (find_lt(data->a->data, data->a->size, div) != -1)
 		{
 			if (*data->a->top < div)
@@ -68,8 +69,8 @@ static int	chunking_a_lt34(t_data *data, t_chunk *a_chunk)
 	{
 		op(data, "pb");
 		op(data, "pb");
-		if (a_chunk->top[0] > a_chunk->top[-1]
-			&& data->b->top[0] < data->b->top[-1])
+		if (*a_chunk->top > *(a_chunk->top -1)
+			&& *data->b->top < *(data->b->top - 1))
 		{
 			op(data, "ss");
 			op(data, "pa");

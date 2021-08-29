@@ -26,8 +26,7 @@ typedef struct s_chunk
 
 void	push_swap45(t_data *data);
 void	push_swap(t_data *data, const double div);
-size_t	partition_b_gt(t_data *data, t_chunk *chunk,
-			int is_lastchunk);
+size_t	partition_b_gt(t_data *data, t_chunk *chunk, int is_lastchunk);
 size_t	partition_a_lt(t_data *data, t_chunk *chunk);
 void	chunking_initial(t_data *data, const double divider);
 void	chunking_a_lt(t_data *data, t_chunk *chunk);

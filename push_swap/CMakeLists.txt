@@ -41,6 +41,9 @@ set(SRCS
 ./src/utils/put_op.c
 ./src/op.c
 ./src/parse.c
+./src/chunking.c
+./src/partition_a.c
+./src/partition_b.c
 ./src/optimize.c
 ./src/push_swap.c
 ./src/main.c

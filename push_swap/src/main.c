@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "op.h"
 #include "parse.h"
 #include "optimize.h"
 #include "stack.h"

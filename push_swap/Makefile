@@ -49,7 +49,8 @@ SRCS =  ./src/utils/alloca_to.c \
 		./src/parse.c \
 		./src/optimize.c \
 		./src/chunking.c \
-		./src/partition.c \
+		./src/partition_a.c \
+		./src/partition_b.c \
 		./src/push_swap.c \
 		./src/error.c \
 		./src/stackex.c \
