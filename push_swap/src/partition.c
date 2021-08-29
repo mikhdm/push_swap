@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:46:03 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 10:05:15 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 10:23:29 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ size_t	partition_a_lt(t_data *data, t_chunk *chunk)
 		}
 		--chunk->size;
 	}
+	if (chunk->size >= 2 && *chunk->top > *(chunk->top - 1))
+		op(data, "sa"); 
 	partition_a_lt_rra(data, chunk, ra_cnt);
 	return (pb_cnt);
 }
@@ -112,6 +114,8 @@ size_t	partition_b_gt(t_data *data, t_chunk *chunk, int is_lastchunk)
 			}
 			--chunk->size;
 		}
+		if (chunk->size >= 2 && *chunk->top < *(chunk->top - 1)) 
+			op(data, "sb");
 		partition_b_gt_rrb(data, chunk, rb_cnt);
 	}
 	else
@@ -125,8 +129,6 @@ size_t	partition_b_gt(t_data *data, t_chunk *chunk, int is_lastchunk)
 				--chunk->top;
 				--chunk->size;
 			}
-			if (*(chunk->top - 1) > mid)
-				op(data, "sb"); 
 			else if (*(chunk->top - chunk->size + 1) > mid)
 				op(data, "rrb");
 			else
