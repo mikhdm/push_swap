@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 01:05:52 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 09:03:23 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 11:05:27 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ ssize_t		find_lt(int const *values, size_t size, int value);
 int			nth_element_copy(void *data, int *values, size_t size, size_t ind);
 int			ft_linsearch(int *values, int size, int value);
 int			*iarrdup(int *array, size_t	size);
+void		put_op(void *op);
 
 #endif

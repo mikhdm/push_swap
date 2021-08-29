@@ -38,6 +38,7 @@ set(SRCS
 ./src/utils/find_lt.c
 ./src/utils/ft_linsearch.c
 ./src/utils/iarrdup.c
+./src/utils/put_op.c
 ./src/op.c
 ./src/parse.c
 ./src/optimize.c

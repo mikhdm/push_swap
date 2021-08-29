@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 10:29:18 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 11:41:43 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
-
-static void	print_op(void *op)
-{
-	write(STDOUT_FILENO, op, ft_strlen_until((const char *)op, '\0'));
-	write(STDOUT_FILENO, "\n", 1);
-}
 
 static t_list	*ft_opscopy(t_data *data)
 {
@@ -56,7 +49,7 @@ static t_list	*ft_opscopy(t_data *data)
 	return (new);
 }
 
-void	populate(t_data *data, int *values, size_t size)
+static	void	populate(t_data *data, int *values, size_t size)
 {
 	data->values = values;
 	data->a = build(indexify(data, size), size);
@@ -65,73 +58,78 @@ void	populate(t_data *data, int *values, size_t size)
 	data->b = build(NULL, size);
 	if (!data->b)
 		pexit(data, EXIT_FAILURE);
+	if (empty(data->a))
+		pexit(data, EXIT_SUCCESS);
 }
 
-/* @brief Runs push_swap with div value.
- *
- * Runs main machinery with data->values
- * applying algorithms with div value on initial
- * chunking into stack B. On successful run 
- * populates data->ops list with operations.
- *
- * @param data Global state structure
- * @param div Pivot for partition operation in chunking_initial func
- * 
- * @returns Nothing
- */
-void	run(t_data *data, const double div)
+/*
+* @brief Runs push_swap with div value.
+*
+* Runs main machinery with data->values
+* applying algorithms with div value on initial
+* chunking into stack B. On successful run 
+* populates data->ops list with operations.
+*
+* @param data Global state structure
+* @param div Pivot for partition operation in chunking_initial func
+* 
+* @returns min Updated minimum operations count
+*/
+static size_t	run(t_data *data, t_list **ops, size_t min, const double div)
 {
 	size_t	nops;
+
 	push_swap(data, div);
 	nops = ft_lstsize(data->ops);
 	while (nops--)
-		optimize(data);
+		cutting(data);
+	nops = ft_lstsize(data->ops);
+	if (nops <= min)
+	{
+		if (*ops)
+			ft_lstclear(ops, free);
+		*ops = ft_opscopy(data);
+		min = nops;
+	}
+	return (min);
 }
 
-int main(int argc, char **argv)
+static t_list	*opselect(int *values, size_t size)
 {
-	t_data	data;
-	t_list	*ops;
-	int		*values;
-	size_t	min;
-	size_t	runs;
-	size_t	nops;
 	size_t	i;
+	size_t	min;
+	t_list	*ops;
+	t_data	data;
 	const double	div[] = {1.5, 1.61, 2, 2.718, 3, 3.14, 3.5};
 
 	i = 0;
-	min = SIZE_T_MAX;
-	runs = sizeof(div) / sizeof(*div);
-	values = prepare(--argc, ++argv);
 	ops = NULL;
-
-	while (i < runs)
+	min = SIZE_T_MAX;
+	while (i < (sizeof(div) / sizeof(*div)))
 	{
 		data = (t_data){.a = NULL, .b = NULL, .ops = NULL, .chunks = NULL,
 						.values = NULL};
-		populate(&data, values, argc);
-		if (empty(data.a))
-		{
-			cleanup(&data);
-			return (0);
-		}
-		run(&data, div[i]);
-		nops = ft_lstsize(data.ops);
-		if (nops <= min)
-		{
-			if (ops)
-				ft_lstclear(&ops, free);
-			ops = ft_opscopy(&data);
-			min = nops;
-		}
-		values = iarrdup(data.values, argc);
+		populate(&data, values, size);
+		min = run(&data, &ops, min, div[i]);
+		values = iarrdup(data.values, size);
 		if (!values)
 			pexit(&data, EXIT_FAILURE);
 		cleanup(&data);
 		++i;
 	}
-	free(values);
-	ft_lstiter(ops, print_op);
+	if (values)
+		free(values);
+	return (ops);
+}
+
+int main(int argc, char **argv)
+{
+	t_list	*ops;
+	int		*values;
+
+	values = prepare(--argc, ++argv);
+	ops = opselect(values, argc);
+	ft_lstiter(ops, put_op);
 	ft_lstclear(&ops, free);
 	return (0);
 }

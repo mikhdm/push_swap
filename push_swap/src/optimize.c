@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/29 09:06:48 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 09:07:13 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 11:17:15 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int *indexify(t_data *data, size_t size)
 	return (data->values);
 }
 
-void	optimize(t_data *data)
+void	cutting(t_data *data)
 {
 	t_list		*curr;
 	t_list		*next;
