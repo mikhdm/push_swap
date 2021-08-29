@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 01:05:52 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 11:05:27 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:53:41 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@
 # define TRUE	1
 # define FALSE	0
 
-# define IN		1
-# define OUT	0
-
-typedef struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -46,7 +43,7 @@ void		swap(int *l, int *r);
 t_list		*ft_lstnew(void *content);
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 void		ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstadd_front(t_list **lst, t_list *new);
+void		ft_lstadd_front(t_list **lst, t_list *new);
 void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 size_t		ft_lstsize(t_list *lst);

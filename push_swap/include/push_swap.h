@@ -13,7 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include "stack.h"
+# include "stack.h"
 
 # define ASC	1
 # define DESC	0

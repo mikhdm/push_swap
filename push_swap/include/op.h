@@ -13,7 +13,7 @@
 #ifndef OP_H
 # define OP_H
 
-#include "stack.h"
+# include "stack.h"
 
 void	sx(t_data *data, char *cmd);
 void	px(t_data *data, char *cmd);	
