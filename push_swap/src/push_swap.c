@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/30 01:06:25 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 01:07:48 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	push_swap45(t_data *data)
 	if (issorted(data->a->data, data->a->size, DESC))
 		return ;
 	pb_cnt = 0;
-	while (data->a->size >= 3)
+	while (data->a->size > 3)
 	{
 		ind = ft_min(data->a->data, data->a->size);
 		value = data->a->data[ind];
