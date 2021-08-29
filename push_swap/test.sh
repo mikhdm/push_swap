@@ -67,7 +67,8 @@ if [[ $N == 500 ]]; then
 fi
 
 # calculate stat
-SORTED=`echo "${LENGTHS[*]}" | tr ' ' '\n' | sort`
+
+SORTED=`echo "${LENGTHS[*]}" | tr ' ' '\n' | sort -n`
 MIN=`echo $SORTED | tr ' ' '\n' | head -n1`
 MAX=`echo $SORTED | tr ' ' '\n' | tail -n1`
 

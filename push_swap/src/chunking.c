@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:49:32 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 16:54:10 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/29 17:46:22 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,6 @@ void	chunking_initial(t_data *data, const double divider)
 		chunk->top = data->b->top;
 		if (data->a->size <= 5)
 			push_swap45(data);
-		/* else if (data->a->size <= 7) */
-		/* { */
-		/* 	op(data, "pb"); */
-		/* 	op(data, "pb"); */
-		/* 	--chunk->top; */
-		/* 	--chunk->size; */
-		/* 	push_swap45(data); */
-		/* } */
 	}
 }
 
