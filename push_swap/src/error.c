@@ -49,7 +49,7 @@ void	pexit(void *ptr, int status)
 	const char	*error = "Error\n";
 
 	if (status == EXIT_FAILURE)
-		write(STDERR_FILENO, error, ft_strlen_until(error, '\0')); 
+		write(STDERR_FILENO, error, ft_strlen_until(error, '\0'));
 	cleanup(ptr);
 	exit(status);
 }

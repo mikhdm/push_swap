@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:11:10 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 20:46:54 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:51:42 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_chunk	*lstadd_chunk(t_data *data)
 		pexit(data, EXIT_FAILURE);
 	chunk->size = 0;
 	chunk->top = NULL;
-	node = ft_lstnew(chunk);	
+	node = ft_lstnew(chunk);
 	if (!node)
 	{
 		free(chunk);
@@ -112,15 +112,15 @@ t_chunk	*lstadd_chunk(t_data *data)
 * @brief Main routing for data sorting.
 *
 * Quick sort analog involved here. At first data goes into stack B
-* as groups of integers (chunking_initial), where every chunk above contain integers
-* bigger than in a chunk below.
+* as groups of integers (chunking_initial), where every chunk above
+* contains integers bigger than in a chunk below.
 *
 * @param data Global state structure.
 * @param div Partition divider for chunking_initial routine.
 *
 * @return Nothing.
 */
-static void push_swap_g(t_data *data, const double div)
+static	void	push_swap_g(t_data *data, const double div)
 {
 	t_chunk	a_chunk;
 	t_chunk	*b_chunk;

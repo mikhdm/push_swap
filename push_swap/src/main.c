@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/30 00:37:15 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:45:48 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_list	*ft_opscopy(t_data *data)
 			free(str);
 			pexit(data, EXIT_FAILURE);
 		}
-		ft_lstadd_back(&new, node); 
+		ft_lstadd_back(&new, node);
 		old = old->next;
 	}
 	return (new);
@@ -95,10 +95,10 @@ static size_t	run(t_data *data, t_list **ops, size_t min, const double div)
 
 static t_list	*opselect(int *values, size_t size)
 {
-	size_t	i;
-	size_t	min;
-	t_list	*ops;
-	t_data	data;
+	size_t			i;
+	size_t			min;
+	t_list			*ops;
+	t_data			data;
 	const double	div[] = {1.2, 1.5, 1.61, 1.8, 2, 2.2, 2.3, 2.718,
 							 3, 3.14, 3.2, 3.5, 3.71, 4.6, 5, 5.436, 5.71};
 
@@ -108,7 +108,7 @@ static t_list	*opselect(int *values, size_t size)
 	while (i < (sizeof(div) / sizeof(*div)))
 	{
 		data = (t_data){.a = NULL, .b = NULL, .ops = NULL, .chunks = NULL,
-						.values = NULL};
+			.values = NULL};
 		populate(&data, values, size);
 		min = run(&data, &ops, min, div[i]);
 		values = iarrdup(data.values, size);
@@ -122,7 +122,7 @@ static t_list	*opselect(int *values, size_t size)
 	return (ops);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_list	*ops;
 	int		*values;

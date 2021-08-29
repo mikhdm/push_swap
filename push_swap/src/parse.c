@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/29 08:51:39 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 09:01:14 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:47:19 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	valid(size_t argc, char **argv)
 			++digit;
 		if (!*digit)
 			return (FALSE);
-		while(*digit)
+		while (*digit)
 		{
 			if (!ft_isdigit(*digit))
 				return (FALSE);
@@ -77,7 +77,7 @@ int	*parse(size_t argc, char **argv)
 {
 	int		*data;
 	size_t	i;
-	
+
 	i = 0;
 	data = NULL;
 	if (!alloca_to((void **)&data, argc * sizeof(int)))
@@ -102,7 +102,7 @@ int	*parse(size_t argc, char **argv)
  */
 int	*prepare(int argc, char **argv)
 {
-	int *values;
+	int	*values;
 
 	values = NULL;
 	if (!valid(argc, argv))

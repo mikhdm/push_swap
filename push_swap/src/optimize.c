@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/29 09:06:48 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 20:22:20 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:46:09 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "stack.h"
 #include <stdlib.h>
 
-int *indexify(t_data *data, size_t size)
+int	*indexify(t_data *data, size_t size)
 {
 	size_t	i;
 	int		*copy;
@@ -36,11 +36,11 @@ int *indexify(t_data *data, size_t size)
 static int	op_cond(const char *lop, const char *rop)
 {
 	return ((ft_strcmp(lop, "rra") == 0 && ft_strcmp(rop, "ra") == 0)
-			|| (ft_strcmp(lop, "ra") == 0 && ft_strcmp(rop, "rra") == 0)
-			|| (ft_strcmp(lop, "rrb") == 0 && ft_strcmp(rop, "rb") == 0)
-			|| (ft_strcmp(lop, "pa") == 0 && ft_strcmp(rop, "pb") == 0)
-			|| (ft_strcmp(lop, "pb") == 0 && ft_strcmp(rop, "pa") == 0)
-			|| (ft_strcmp(lop, "rb") == 0 && ft_strcmp(rop, "rrb") == 0));
+		|| (ft_strcmp(lop, "ra") == 0 && ft_strcmp(rop, "rra") == 0)
+		|| (ft_strcmp(lop, "rrb") == 0 && ft_strcmp(rop, "rb") == 0)
+		|| (ft_strcmp(lop, "pa") == 0 && ft_strcmp(rop, "pb") == 0)
+		|| (ft_strcmp(lop, "pb") == 0 && ft_strcmp(rop, "pa") == 0)
+		|| (ft_strcmp(lop, "rb") == 0 && ft_strcmp(rop, "rrb") == 0));
 }
 
 static	void	cut_op(t_data *data,

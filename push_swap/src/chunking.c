@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 19:49:32 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/30 00:28:52 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:48:07 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	chunking_initial(t_data *data, const double divider)
 	{
 		chunk = lstadd_chunk(data);
 		div = nth_element_copy(data,
-				data->a->data, data->a->size,data->a->size / divider);
+				data->a->data, data->a->size, data->a->size / divider);
 		while (find_lt(data->a->data, data->a->size, div) != -1)
 		{
 			if (*data->a->top < div)

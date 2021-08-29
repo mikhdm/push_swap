@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/29 23:43:12 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/29 23:48:05 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:49:24 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,11 @@ static size_t	partition_a_lt_basic(t_data *data, t_chunk *chunk, int div)
 */
 size_t	partition_a_lt(t_data *data, t_chunk *chunk)
 {
-	size_t 	pb_cnt;
+	size_t	pb_cnt;
 	int		mid;
 
-	pb_cnt = 0;
 	mid = nth_element_copy(data, chunk->top - chunk->size + 1,
-						   chunk->size, chunk->size / 2);
+			   chunk->size, chunk->size / 2);
 	pb_cnt = partition_a_lt_basic(data, chunk, mid);
 	return (pb_cnt);
 }
