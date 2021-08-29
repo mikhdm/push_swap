@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 03:05:19 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/09 04:21:10 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:20:40 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static ssize_t	ft_pow(ssize_t n, ssize_t power)
 	return (res);
 }
 
-static ssize_t ft_negate(ssize_t value, int neg)
+static ssize_t	ft_negate(ssize_t value, int neg)
 {
 	if (neg)
 		value *= (-1);

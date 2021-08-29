@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:39:30 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/02 19:39:44 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:21:06 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,3 @@ int	ft_isdigit(int c)
 		return (TRUE);
 	return (FALSE);
 }
-

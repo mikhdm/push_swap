@@ -6,20 +6,19 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 17:55:49 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/22 00:18:55 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:23:52 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include <stddef.h>
 
 /*
 * Hoar partition
 */
 static size_t	partition(int *values, size_t l, size_t r)
 {
-	size_t pivot;
-	size_t result;
+	size_t	pivot;
+	size_t	result;
 
 	result = l;
 	pivot = r;
@@ -37,14 +36,13 @@ static size_t	partition(int *values, size_t l, size_t r)
 }
 
 /*
- *
  * nth_element - returns value from sorted values at k
  */
-int nth_element(int *values, size_t size, size_t k)
+int	nth_element(int *values, size_t size, size_t k)
 {
 	size_t	l;
 	size_t	r;
-	size_t 	m;
+	size_t	m;
 
 	l = 0;
 	r = size - 1;

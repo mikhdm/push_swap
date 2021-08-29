@@ -19,7 +19,7 @@
 */
 ssize_t	find_lt(int const *values, size_t size, int value)
 {
-	size_t 	i;
+	size_t	i;
 
 	i = 0;
 	while (i < size)

@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 17:01:03 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/19 17:57:24 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:21:43 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 */
 static size_t	partition(int *values, size_t l, size_t r)
 {
-	size_t pivot;
-	size_t result;
-	
+	size_t	pivot;
+	size_t	result;
+
 	result = l;
 	pivot = r;
 	while (l < r)

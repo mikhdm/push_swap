@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 04:43:18 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/17 19:28:53 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 00:31:06 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ void	sx(t_data *data, char *cmd)
 	if (ft_strcmp(cmd, "sa") == 0)
 	{
 		if (!empty(data->a) && data->a->size > 1)
-			swap(&data->a->data[data->a->size - 1], &data->a->data[data->a->size - 2]); 
+			swap(&data->a->data[data->a->size - 1],
+				 &data->a->data[data->a->size - 2]);
 	}
 	else if (ft_strcmp(cmd, "sb") == 0)
 	{
 		if (!empty(data->b) && data->b->size > 1)
-			swap(&data->b->data[data->b->size - 1], &data->b->data[data->b->size - 2]);
+			swap(&data->b->data[data->b->size - 1],
+				 &data->b->data[data->b->size - 2]);
 	}
 	else if (ft_strcmp(cmd, "ss") == 0)
 	{
@@ -93,13 +95,13 @@ void	op(t_data *data, char *cmd)
 	if (ft_strcmp(cmd, "pa") == 0 || ft_strcmp(cmd, "pb") == 0)
 		px(data, cmd);
 	else if (ft_strcmp(cmd, "sa") == 0 || ft_strcmp(cmd, "sb") == 0
-			|| ft_strcmp(cmd, "ss") == 0)
+		|| ft_strcmp(cmd, "ss") == 0)
 		sx(data, cmd);
 	else if (ft_strcmp(cmd, "ra") == 0 || ft_strcmp(cmd, "rb") == 0
-			|| ft_strcmp(cmd, "rr") == 0)
+		|| ft_strcmp(cmd, "rr") == 0)
 		rx(data, cmd);
 	else if (ft_strcmp(cmd, "rra") == 0 || ft_strcmp(cmd, "rrb") == 0
-			|| ft_strcmp(cmd, "rrr") == 0)
+		|| ft_strcmp(cmd, "rrr") == 0)
 		rrx(data, cmd);
 	cmd = ft_strdup_until(cmd, '\0');
 	if (!cmd)
