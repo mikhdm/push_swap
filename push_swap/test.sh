@@ -2,7 +2,7 @@
 
 # build push_swap if not
 if [ -z "$(ls -al | grep push_swap)" ]; then
-	make
+	make bonus
 fi
 
 FIRES=$1
@@ -13,11 +13,7 @@ ERRORS=0
 SUCCESSES=0
 
 # choose appropriate checker on Linux & MacOS
-if [[ $(uname) == "Linux" ]]; then
-	CHECKER=./checker_linux
-elif [[ $(uname) == "Darwin" ]]; then
-	CHECKER=./checker_Mac
-fi
+CHECKER=./checker
 
 # run tests
 for i in $(seq 1 $FIRES); do

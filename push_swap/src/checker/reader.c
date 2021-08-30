@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 07:41:32 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/30 07:51:25 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 08:22:38 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 static int	op_valid(const char *cmd)
 {
-	size_t	i;
-	const char *ops[] = {"sa", "sb", "ss", "pa", "pb",
+	size_t		i;
+	const char	*ops[] = {"sa", "sb", "ss", "pa", "pb",
 						"ra", "rb", "rr", "rra", "rrb", "rrr"};
 
 	if (!cmd)
@@ -31,10 +31,10 @@ static int	op_valid(const char *cmd)
 	return (FALSE);
 }
 
-static t_list *op_add(t_data *data, t_list *ops, char *cmd)
+static t_list	*op_add(t_data *data, t_list *ops, char *cmd)
 {
 	t_list	*node;
-	
+
 	node = NULL;
 	if (!op_valid(cmd))
 	{

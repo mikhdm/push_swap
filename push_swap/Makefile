@@ -6,7 +6,7 @@
 #    By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 14:27:56 by rmander           #+#    #+#              #
-#   Updated: 2021/08/30 01:11:39 by rmander          ###   ########.fr       # #
+#    Updated: 2021/08/30 08:37:48 by rmander          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = push_swap
 BONUS = checker
 CC = clang
 INCLUDE = ./include
-CFLAGS = -fsanitize=address -fsanitize=leak -g -Wall -Wextra -Werror -MMD -I $(INCLUDE)
-# CFLAGS = -O3 -Wall -Wextra -Werror -MMD -I $(INCLUDE)
+# CFLAGS = -fsanitize=address -fsanitize=leak -g -Wall -Wextra -Werror -MMD -I $(INCLUDE)
+CFLAGS = -O3 -Wall -Wextra -Werror -MMD -I $(INCLUDE)
 SRCS =  ./src/utils/alloca_to.c \
 		./src/utils/ft_atoi.c \
 		./src/utils/ft_atoss.c \
@@ -83,7 +83,6 @@ CHECKERSRCS =	./src/utils/alloca_to.c \
 				./src/utils/ft_lstclear.c \
 				./src/utils/issorted.c \
 				./src/utils/swap.c \
-				./src/utils/put_op.c \
 				./src/error.c \
 				./src/stackex.c \
 				./src/stack.c \
@@ -108,8 +107,8 @@ bonus: $(BONUS)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(BONUS): $(CHECKEROBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+$(BONUS): $(CHECKEROBJS) $(NAME)
+	$(CC) $(CFLAGS) $(CHECKEROBJS) -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
