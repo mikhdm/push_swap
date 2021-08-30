@@ -6,7 +6,7 @@
 /*   By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 23:08:41 by rmander           #+#    #+#             */
-/*   Updated: 2021/08/30 00:45:48 by rmander          ###   ########.fr       */
+/*   Updated: 2021/08/30 08:15:00 by rmander          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,9 @@ int	main(int argc, char **argv)
 {
 	t_list	*ops;
 	int		*values;
-
+	
+	if ((argc - 1) == 0)
+		return (0);
 	values = prepare(--argc, ++argv);
 	ops = opselect(values, argc);
 	ft_lstiter(ops, put_op);

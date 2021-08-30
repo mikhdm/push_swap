@@ -19,6 +19,8 @@ set(SRCS
 ./src/utils/ft_strchr.c
 ./src/utils/ft_strdup_until.c
 ./src/utils/ft_strlen_until.c
+./src/utils/ft_strlcpy.c
+./src/utils/ft_strjoin.c
 ./src/utils/ft_qsort.c
 ./src/utils/issorted.c
 ./src/utils/swap.c
@@ -39,6 +41,8 @@ set(SRCS
 ./src/utils/ft_linsearch.c
 ./src/utils/iarrdup.c
 ./src/utils/put_op.c
+./src/utils/get_next_line_utils.c
+./src/utils/get_next_line.c
 ./src/op.c
 ./src/parse.c
 ./src/chunking.c
