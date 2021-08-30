@@ -8,7 +8,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
 
 include_directories(include)
 
-set(SRCS
+set(PUSH_SWAP_SRCS
 ./src/utils/alloca_to.c
 ./src/utils/ft_atoi.c
 ./src/utils/ft_atoss.c
@@ -19,8 +19,6 @@ set(SRCS
 ./src/utils/ft_strchr.c
 ./src/utils/ft_strdup_until.c
 ./src/utils/ft_strlen_until.c
-./src/utils/ft_strlcpy.c
-./src/utils/ft_strjoin.c
 ./src/utils/ft_qsort.c
 ./src/utils/issorted.c
 ./src/utils/swap.c
@@ -41,20 +39,52 @@ set(SRCS
 ./src/utils/ft_linsearch.c
 ./src/utils/iarrdup.c
 ./src/utils/put_op.c
-./src/utils/get_next_line_utils.c
-./src/utils/get_next_line.c
 ./src/op.c
 ./src/parse.c
+./src/optimize.c
 ./src/chunking.c
 ./src/partition_a.c
 ./src/partition_b.c
-./src/optimize.c
-./src/push_swap_g.c
 ./src/push_swap.c
-./src/main.c
+./src/push_swap_g.c
 ./src/error.c
-./src/stack.c
 ./src/stackex.c
-)
+./src/stack.c
+./src/main.c)
 
-add_executable(push_swap ${SRCS})
+set(CHECKER_SRCS
+./src/utils/alloca_to.c
+./src/utils/get_next_line_utils.c
+./src/utils/ft_atoi.c
+./src/utils/ft_isdigit.c
+./src/utils/ft_isspace.c
+./src/utils/ft_linsearch.c
+./src/utils/ft_memset.c
+./src/utils/ft_qsort.c
+./src/utils/ft_atoss.c
+./src/utils/get_next_line.c
+./src/utils/ft_strlcpy.c
+./src/utils/ft_strjoin.c
+./src/utils/ft_memcpy.c
+./src/utils/ft_strchr.c
+./src/utils/ft_strdup_until.c
+./src/utils/ft_strlen_until.c
+./src/utils/ft_strcmp.c
+./src/utils/ft_lstnew.c
+./src/utils/ft_lstiter.c
+./src/utils/ft_lstadd_back.c
+./src/utils/ft_lstdelone.c
+./src/utils/ft_lstclear.c
+./src/utils/issorted.c
+./src/utils/swap.c
+./src/error.c
+./src/stackex.c
+./src/stack.c
+./src/op.c
+./src/parse.c
+./src/optimize.c
+./src/checker/reader.c
+./src/checker/checker.c)
+
+add_executable(push_swap ${PUSH_SWAP_SRCS})
+add_executable(checker ${CHECKER_SRCS})
