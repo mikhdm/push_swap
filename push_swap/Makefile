@@ -63,7 +63,7 @@ DEPS = $(SRCS:.c=.d)
 
 all: $(NAME)
 
--include: $(DEPS)
+-include $(DEPS)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@
