@@ -6,7 +6,7 @@
 #    By: rmander <rmander@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 14:27:56 by rmander           #+#    #+#              #
-#    Updated: 2021/08/30 20:18:20 by rmander          ###   ########.fr        #
+#    Updated: 2021/08/30 20:19:44 by rmander          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,7 +99,7 @@ CHECKERDEPS = $(CHECKERSRCS:.c=.d)
 
 all: $(NAME)
 
-bonus: $(BONUS)
+bonus: $(BONUS) $(NAME)
 
 -include $(DEPS)
 -include $(CHECKERDEPS)
@@ -107,8 +107,8 @@ bonus: $(BONUS)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(BONUS): $(CHECKEROBJS) $(NAME)
-	$(CC) $(CFLAGS) $(CHECKEROBJS) -o $@
+$(BONUS): $(CHECKEROBJS)
+	$(CC) $(CFLAGS) $^ -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
