@@ -1,10 +1,13 @@
-# Push_swap
+# push_swap
 
-### Description
+## Description
 
-This project was implemented while studying at 42 School (Moscow).
+This project generates a sequence of predefined commands designed to sort integers distributed across two stacks. It was developed during my studies at 42.
 
-### Task
+## How to build?
 
-The task is to generate a set of instructions that are expected to sort the sequence of integers stored in one stack into another.  
-Read the detailed description of the subject [here](https://github.com/mikhdm/push_swap/blob/b5c974fb5c3d5e1ad1ccf9136c409b99d44e1075/en.subject.pdf).
+- `make` or `make all` - Compile base part (not including the list manipulation functions).
+- `make bonus` - Compile all from previous item + list manipulation functions.
+- `make clean` - Remove object and dependencies (-MMD) files.
+- `make fclean` - Remove all from the above + main target (.a archive file with all the functions).
+- `make re` - run `make fclean` and `make all`.
